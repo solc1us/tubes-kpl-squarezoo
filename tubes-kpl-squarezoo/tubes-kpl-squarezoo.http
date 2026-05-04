@@ -1,0 +1,6 @@
+@tubes_kpl_squarezoo_HostAddress = http://localhost:5191
+
+GET {{tubes_kpl_squarezoo_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
