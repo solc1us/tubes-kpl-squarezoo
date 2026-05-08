@@ -10,9 +10,9 @@ namespace tubes_kpl_squarezoo.Models
 
         private Dictionary<string, bool> permissions;
 
-        public User(Guid userId, string name, string noHP)
+        public User(string name, string noHP)
         {
-            UserId = userId;
+            UserId = Guid.NewGuid();
             Name = name;
             NoHP = noHP;
             permissions = new Dictionary<string, bool>();

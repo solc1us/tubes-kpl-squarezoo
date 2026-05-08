@@ -21,13 +21,20 @@ namespace tubes_kpl_squarezoo.Services
         }
 
         // Business Logic: Menghasilkan instance Report baru
-        public Report CreateReport(User user, string title, string desc)
+        public Report CreateReport(Report report)
         {
-            var newReport = new Report(title, desc, user);
+            if (report == null) throw new ArgumentNullException(nameof(report));
 
-            _reports.Add(newReport.ReportId, newReport);
-            SaveToFile(); // Persistence otomatis 
-            return newReport;
+            // Defensive programming: cek duplikasi ID
+            if (report.Status != ReportStatus.Draft)
+                throw new InvalidOperationException("Laporan baru harus memiliki status Draft.");
+
+            if (!_reports.ContainsKey(report.ReportId))
+            {
+                _reports.Add(report.ReportId, report);
+                SaveToFile();
+            }
+            return report;
         }
 
         public List<Report> GetAllReports()
@@ -50,17 +57,37 @@ namespace tubes_kpl_squarezoo.Services
             report.Title = title;
             report.Description = desc;
         
-        SaveToFile();
+            SaveToFile();
             return true;
         }
 
         public bool DeleteReport(Guid reportId)
         {
-             if (_reports.Remove(reportId))
-        {
+            if (_reports.Remove(reportId))
+            {
                 SaveToFile();
                 return true;
             }
+            return false;
+        }
+
+        // Dedicated Method untuk transisi status agar tetap terkontrol oleh Automata
+        public bool ExecuteTransition(Guid reportId, ReportStatus nextStatus)
+        {
+            var report = GetById(reportId);
+            if (report == null) return false;
+
+            // Delegate logic transition ke Model (Automata)
+            bool isTransitionSuccessful = report.TransitionTo(nextStatus);
+
+            // Kalau transisi valid menurut transitionTable, baru simpan ke JSON
+            if (isTransitionSuccessful)
+            {
+                SaveToFile();
+                return true;
+            }
+
+            // Kalau gagal (transisi ilegal), return false biar pemanggil tau status gak berubah
             return false;
         }
 
@@ -74,7 +101,6 @@ namespace tubes_kpl_squarezoo.Services
                 {
                     Directory.CreateDirectory(directory);
                 }
-
                 string jsonString = JsonSerializer.Serialize(_reports, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(_filePath, jsonString);
             }
