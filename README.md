@@ -1,5 +1,4 @@
 # Sexual Violence Reporting System (SVRS)
-
 Sistem pengaduan kekerasan seksual berbasis C# yang fokus pada fungsionalitas CRUD, integritas data, dan manajemen alur status menggunakan *State Machine*. Project ini dibuat untuk memenuhi tugas mata kuliah Konstruksi Perangkat Lunak dengan penekanan pada penerapan teknik desain perangkat lunak yang *robust* dan *testable*.
 
 ## 🚀 Core Technologies & Techniques
@@ -15,6 +14,8 @@ Project ini mengimplementasikan minimal 2 teknik pada setiap class utama untuk m
 | **AdminManager** | API + Code Reuse | Mengorkestrasi aksi administratif dengan memanfaatkan *reusable logic* dari service layer. |
 
 ## 📂 Project Structure
+
+```text
 tubes-kpl-squarezoo/
 ├── tubes-kpl-squarezoo/
 │   ├── Data/             # Persistent storage (JSON files)
@@ -24,6 +25,7 @@ tubes-kpl-squarezoo/
 │   ├── Services/         # Data Access & File I/O (JSON)
 │   └── Managers/         # Business Logic Orchestrator (AdminManager)
 └── tests/                # Unit Testing (Logic validation)
+```
 
 ## 🛠️ Installation & Setup
 
@@ -31,22 +33,22 @@ tubes-kpl-squarezoo/
 ```bash
    git clone https://github.com/solc1us/tubes-kpl-squarezoo.git
    cd tubes-kpl-squarezoo
-   ```
+```
 
 2. **Restore Dependencies**
 ```bash
    dotnet restore
-   ```
+```
 
 3. **Build Project**
 ```bash
    dotnet build
-   ```
+```
 
 4. **Run Application**
 ```bash
-   dotnet run --project src/ReportingSystem.csproj
-   ```
+   dotnet run --project tubes-kpl-squarezoo/tubes-kpl-squarezoo.csproj
+```
 
 ## 🧪 Unit Testing
 
