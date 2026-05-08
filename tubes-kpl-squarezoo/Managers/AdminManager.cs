@@ -14,10 +14,10 @@ namespace tubes_kpl_squarezoo
 
         private readonly ReportService _service;
 
-        public AdminManager(string name, ReportService service)
+        public AdminManager(ReportService service)
         {
             AdminID = Guid.NewGuid();
-            Name = name;
+            Name = "System Admin";
             _service = service;
         }
 
@@ -42,14 +42,18 @@ namespace tubes_kpl_squarezoo
 
         public bool CloseReport(Guid reportId)
         {
-            Report report = _service.GetById(reportId);
+            Report? report = _service.GetById(reportId);
 
-            if (report == null)
+            if (report == null) return false;
+
+            bool success = report.TransitionTo(ReportStatus.Closed);
+
+            if (success)
             {
-                return false;
+                _service.SaveToFile(); // Pastikan perubahan state tersimpan ke JSON
             }
 
-            return report.TransitionTo(ReportStatus.Closed);
+            return success;
         }
     }
 }
