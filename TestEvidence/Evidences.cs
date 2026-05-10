@@ -4,5 +4,15 @@
     {
         public object Type { get; set; }
         public object Content { get; set; }
+
+        internal IAsyncEnumerable<char>? GetSummary()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal bool Validate()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
