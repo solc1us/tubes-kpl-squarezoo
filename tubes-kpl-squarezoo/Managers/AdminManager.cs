@@ -12,8 +12,10 @@ namespace tubes_kpl_squarezoo
         public Guid AdminID { get; set; }
         public string Name { get; set; }
 
+        // Menggunakan ReportService untuk mengelola data report
         private readonly ReportService _service;
 
+        // Constructor AdminManager
         public AdminManager(ReportService service)
         {
             AdminID = Guid.NewGuid();
@@ -21,11 +23,13 @@ namespace tubes_kpl_squarezoo
             _service = service;
         }
 
+        // Mengambil seluruh data report
         public List<Report> GetAllReports()
         {
             return _service.GetAllReports();
         }
 
+        // Mengambil report berdasarkan status tertentu
         public List<Report> GetByStatus(ReportStatus status)
         {
             return _service.GetAllReports()
@@ -33,6 +37,7 @@ namespace tubes_kpl_squarezoo
                 .ToList();
         }
 
+        // Membuat summary jumlah report berdasarkan status
         public Dictionary<ReportStatus, int> GetSummary()
         {
             return _service.GetAllReports()
@@ -40,17 +45,22 @@ namespace tubes_kpl_squarezoo
                 .ToDictionary(group => group.Key, group => group.Count());
         }
 
+        // Menutup report jika status sudah valid untuk di-close
         public bool CloseReport(Guid reportId)
         {
+            // Mengambil report berdasarkan ID
             Report? report = _service.GetById(reportId);
 
+            // Return false jika report tidak ditemukan
             if (report == null) return false;
 
+            // Mengubah status report menjadi Closed
             bool success = report.TransitionTo(ReportStatus.Closed);
 
+            // Simpan perubahan jika transisi berhasil
             if (success)
             {
-                _service.SaveToFile(); // Pastikan perubahan state tersimpan ke JSON
+                _service.SaveToFile();
             }
 
             return success;

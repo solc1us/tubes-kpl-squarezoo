@@ -1,4 +1,6 @@
 <Solution>
+  <Project Path="tests/AdminManagerSystem.Performance/AdminManagerSystem.Performance.csproj" />
+  <Project Path="tests/AdminManagerSystem.Tests/AdminManagerSystem.Tests.csproj" />
   <Project Path="tests/Evidence.PerformanceTest/PerformancEvidence.csproj" />
   <Project Path="tests/Evidence.Tests/TestEvidence.csproj" />
   <Project Path="tests/TestEvidence/TestEvidence.csproj" />
