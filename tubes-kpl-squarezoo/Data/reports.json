@@ -1,3 +1,39 @@
 {
-
+  "b865968e-c44a-46c9-9117-024e37e2be72": {
+    "ReportId": "b865968e-c44a-46c9-9117-024e37e2be72",
+    "Title": "KS di Cacuk",
+    "Description": "Kronologinya 2222",
+    "ReportedBy": {
+      "UserId": "0a22f889-37d8-4b73-8fcd-a0770f44e05e",
+      "Name": "Salman",
+      "NoHP": "08123"
+    },
+    "Evidences": [
+      {
+        "EvidenceId": "ed1e96b6-ee73-4e6a-bcb8-2495797d143c",
+        "Type": 1,
+        "Content": "teskonten",
+        "Description": "ini keterangan dari korban"
+      },
+      {
+        "EvidenceId": "5deac4b1-9745-4ced-b9e9-8ba8d4effce5",
+        "Type": 0,
+        "Content": "teskonten",
+        "Description": "testimoni teman korban"
+      }
+    ],
+    "Status": 2
+  },
+  "90b06480-7626-4311-b0dc-d447dccf7d6a": {
+    "ReportId": "90b06480-7626-4311-b0dc-d447dccf7d6a",
+    "Title": "KS di Rektorat",
+    "Description": "Ini kronologinya beigni ebegini",
+    "ReportedBy": {
+      "UserId": "0a22f889-37d8-4b73-8fcd-a0770f44e05e",
+      "Name": "Salman",
+      "NoHP": "08123"
+    },
+    "Evidences": [],
+    "Status": 0
+  }
 }
