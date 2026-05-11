@@ -1,4 +1,5 @@
 <Solution>
-  <Project Path="TestEvidence/TestEvidence.csproj" Id="4dbc1817-9027-4d7a-818b-f172ac4288ff" />
+  <Project Path="Test/PerformancEvidence/PerformancEvidence.csproj" />
+  <Project Path="Test/TestEvidence/TestEvidence.csproj" />
   <Project Path="tubes-kpl-squarezoo/tubes-kpl-squarezoo.csproj" />
 </Solution>
