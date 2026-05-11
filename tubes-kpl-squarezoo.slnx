@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="tests/AdminManagerSystem.Performance/AdminManagerSystem.Performance.csproj" />
+  <Project Path="tests/AdminManagerSystem.Tests/AdminManagerSystem.Tests.csproj" />
   <Project Path="tubes-kpl-squarezoo/tubes-kpl-squarezoo.csproj" />
 </Solution>
