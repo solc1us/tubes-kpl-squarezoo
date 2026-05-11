@@ -127,5 +127,19 @@ namespace tubes_kpl_squarezoo.Services
                 _reports = new Dictionary<Guid, Report>();
             }
         }
+
+        public bool AddEvidenceToReport(Guid reportId, EvidenceType type, object content, string description)
+        {
+            // Pengecekan pre-condition
+            var report = GetById(reportId);
+            if (report == null) return false;
+            if (content == null) throw new ArgumentNullException(nameof(content));
+
+            var evidence = new Evidence<object>(type, content, description);
+            report.AddEvidence(evidence);
+            SaveToFile();
+
+            return true;
+        }
     }
 }
