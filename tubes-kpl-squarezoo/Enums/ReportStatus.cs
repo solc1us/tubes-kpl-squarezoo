@@ -1,6 +1,11 @@
 ﻿namespace tubes_kpl_squarezoo.Enums
 {
-    public class ReportStatus
+    public enum ReportStatus
     {
+        Draft,
+        Submitted,
+        UnderReview,
+        Resolved,
+        Closed
     }
 }
