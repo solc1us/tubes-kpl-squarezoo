@@ -10,4 +10,6 @@
   <Project Path="tests/Report.PerformanceTest/Report.PerformanceTest.csproj" />
   <Project Path="tests/Report.UnitTest/Report.UnitTest.csproj" Id="3556714d-dae7-4fb5-bda7-3b973b0473de" />
   <Project Path="tubes-kpl-squarezoo/tubes-kpl-squarezoo.csproj" />
+  <Project Path="tests/User.PerformanceTest/UserPerformence.csproj" Id="2cfd7b79-166a-4e7c-8569-9b9512ccbc06" />
+  <Project Path="tests/User.UnitTest/UserTest.csproj" Id="593ffc04-fb72-4123-8090-d46a637119fc" />
 </Solution>
