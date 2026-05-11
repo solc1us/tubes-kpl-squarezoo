@@ -1,5 +1,5 @@
 ﻿using System;
-using tubes_kpl_squarezoo;
+using tubes_kpl_squarezoo.Enums;
 using Xunit;
 
 namespace tubes_kpl_squarezoo.Tests
