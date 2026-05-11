@@ -1,5 +1,11 @@
 <Solution>
-  <Project Path="Test/PerformancEvidence/PerformancEvidence.csproj" />
-  <Project Path="Test/TestEvidence/TestEvidence.csproj" />
+  <Project Path="tests/Evidence.PerformanceTest/PerformancEvidence.csproj" />
+  <Project Path="tests/Evidence.Tests/TestEvidence.csproj" />
+  <Project Path="tests/TestEvidence/TestEvidence.csproj" />
+  <Project Path="tests/ReportingSystem.Performance/ReportingSystem.Performance.csproj" />
+  <Project Path="tests/ReportingSystem.Tests/ReportingSystem.Tests.csproj" />
+  <Project Path="tests/Evidence.Tests/TestEvidence.csproj" />
+  <Project Path="tests/Report.PerformanceTest/Report.PerformanceTest.csproj" />
+  <Project Path="tests/Report.UnitTest/Report.UnitTest.csproj" Id="3556714d-dae7-4fb5-bda7-3b973b0473de" />
   <Project Path="tubes-kpl-squarezoo/tubes-kpl-squarezoo.csproj" />
 </Solution>

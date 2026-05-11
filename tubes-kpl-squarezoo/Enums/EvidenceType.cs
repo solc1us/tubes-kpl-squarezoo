@@ -1,6 +1,9 @@
 ﻿namespace tubes_kpl_squarezoo.Enums
 {
-    public class EvidenceType
+    public enum EvidenceType
     {
+        Testimony,
+        Document,
+        MediaLink
     }
 }
