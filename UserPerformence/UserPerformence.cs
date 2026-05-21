@@ -1,44 +1,50 @@
 ﻿using BenchmarkDotNet.Attributes;
 using System;
 using System.Collections.Generic;
-using tubes_kpl_squarezoo;
 
 namespace UserPerformence
 {
     [MemoryDiagnoser]
+    [SimpleJob]
     public class UserPerformence
     {
-        public User user;
+        private User user;
 
-        [IterationSetup]
+        [GlobalSetup]
         public void Setup()
         {
             user = new User(
                 Guid.NewGuid(),
                 "Rafael",
-                "08123456789"
+                "08123456789",
+                "User"
             );
-
-            user.AddPermission("CreateReport");
-            user.AddPermission("ViewReport");
         }
 
         [Benchmark]
         public bool CanPerformBenchmark()
         {
-            return user.CanPerform("CreateReport");
-        }
+            bool result = false;
 
-        [Benchmark]
-        public void AddPermissionBenchmark()
-        {
-            user.AddPermission("NewPermission");
+            for (int i = 0; i < 10000; i++)
+            {
+                result = user.CanPerform("Report:Create");
+            }
+
+            return result;
         }
 
         [Benchmark]
         public List<string> GetPermissionsBenchmark()
         {
-            return user.GetPermissions();
+            List<string> permissions = null;
+
+            for (int i = 0; i < 10000; i++)
+            {
+                permissions = user.GetPermissions();
+            }
+
+            return permissions;
         }
     }
 }

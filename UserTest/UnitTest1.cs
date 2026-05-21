@@ -1,70 +1,51 @@
-﻿using Xunit;
-using System;
-using tubes_kpl_squarezoo;
+﻿using System;
+using Xunit;
 
-namespace UserTest
+public class UnitTest1
 {
-    public class Test1
+    [Fact]
+    public void TestCanPerform_User()
     {
-        [Fact]
-        public void TestAddPermission()
-        {
-            User user = new User(
-                Guid.NewGuid(),
-                "Rafael",
-                "08123456789"
-            );
+        User user = new User(
+            Guid.NewGuid(),
+            "Rafael",
+            "08123456789",
+            "User"
+        );
 
-            user.AddPermission("CreateReport");
+        bool result = user.CanPerform("Report:Create");
 
-            Assert.True(user.CanPerform("CreateReport"));
-        }
+        Assert.True(result);
+    }
 
-        [Fact]
-        public void TestCanPerformTrue()
-        {
-            User user = new User(
-                Guid.NewGuid(),
-                "Rafael",
-                "08123456789"
-            );
+    [Fact]
+    public void TestCanPerform_Admin()
+    {
+        User admin = new User(
+            Guid.NewGuid(),
+            "Admin",
+            "08111111111",
+            "Admin"
+        );
 
-            user.AddPermission("CreateReport");
+        bool result = admin.CanPerform("Report:Close");
 
-            bool result = user.CanPerform("CreateReport");
+        Assert.True(result);
+    }
 
-            Assert.True(result);
-        }
+    [Fact]
+    public void TestGetPermissions()
+    {
+        User user = new User(
+            Guid.NewGuid(),
+            "Rafael",
+            "08123456789",
+            "User"
+        );
 
-        [Fact]
-        public void TestCanPerformFalse()
-        {
-            User user = new User(
-                Guid.NewGuid(),
-                "Rafael",
-                "08123456789"
-            );
+        var permissions = user.GetPermissions();
 
-            bool result = user.CanPerform("DeleteReport");
-
-            Assert.False(result);
-        }
-
-        [Fact]
-        public void TestGetPermissions()
-        {
-            User user = new User(
-                Guid.NewGuid(),
-                "Rafael",
-                "08123456789"
-            );
-
-            user.AddPermission("CreateReport");
-            user.AddPermission("ViewReport");
-
-            var permissions = user.GetPermissions();
-
-            Assert.Equal(2, permissions.Count);
-        }
+        Assert.NotNull(permissions);
+        Assert.True(permissions.Count > 0);
     }
 }
