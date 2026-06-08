@@ -61,6 +61,22 @@ namespace tubes_kpl_squarezoo.Services
             return _reports.TryGetValue(reportId, out var report) ? report : null;
         }
 
+        public object? TrackReport(Guid reportId, string pin)
+        {
+            var report = GetById(reportId);
+            if (report == null || report.TrackingPin != pin)
+                return null;
+
+            return new
+            {
+                report.ReportId,
+                report.Title,
+                report.Description,
+                report.Status,
+                report.Evidences
+            };
+        }
+
         public bool UpdateReport(Guid reportId, string title, string desc)
         {
             var report = GetById(reportId);

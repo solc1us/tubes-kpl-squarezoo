@@ -19,23 +19,64 @@ public class ReportController : ControllerBase
         _userService = userService;
     }
 
+    /// <summary>
+    /// Gets all reports, optionally filtered by status.
+    /// </summary>
+    /// <param name="status">Optional report status filter. 0 = Diterima, 1 = Diproses, 2 = Selesai, 3 = Ditolak.</param>
+    /// <returns>A raw array of reports.</returns>
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public IActionResult GetAll([FromQuery] ReportStatus? status)
     {
         return Ok(status.HasValue ? _reportService.GetReportsByStatus(status.Value) : _reportService.GetAllReports());
     }
 
+    /// <summary>
+    /// Gets aggregated report summary for dashboard usage.
+    /// </summary>
+    /// <returns>Total reports wgrouped by MVP status.</returns>
     [HttpGet("summary")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public IActionResult GetSummary() => Ok(_reportService.GetSummary());
 
+    /// <summary>
+    /// Tracks a report using report ID and tracking PIN.
+    /// </summary>
+    /// <param name="request">Report tracking request.</param>
+    /// <returns>Public tracking data for the matching report.</returns>
+    [HttpPost("track")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public IActionResult Track([FromBody] TrackReportRequest request)
+    {
+        var trackingData = _reportService.TrackReport(request.ReportId, request.Pin);
+        return trackingData == null ? Unauthorized(new { message = "Report ID atau PIN tidak valid." }) : Ok(trackingData);
+    }
+
+    /// <summary>
+    /// Gets report detail by ID.
+    /// </summary>
+    /// <param name="id">Report ID.</param>
+    /// <returns>The matching report.</returns>
     [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult GetById(Guid id)
     {
         var report = _reportService.GetById(id);
         return report == null ? NotFound(new { message = $"Report dengan ID {id} tidak ditemukan." }) : Ok(report);
     }
 
+    /// <summary>
+    /// Creates a new report.
+    /// </summary>
+    /// <param name="request">Report creation request.</param>
+    /// <returns>The created report.</returns>
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Create([FromBody] CreateReportRequest request)
     {
         try
@@ -56,7 +97,15 @@ public class ReportController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Updates report data.
+    /// </summary>
+    /// <param name="id">Report ID.</param>
+    /// <param name="request">Report update request.</param>
+    /// <returns>The updated report.</returns>
     [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Update(Guid id, [FromBody] UpdateReportRequest request)
     {
         bool updated = _reportService.UpdateReport(id, request.Title, request.Description);
@@ -68,14 +117,29 @@ public class ReportController : ControllerBase
         return Ok(_reportService.GetById(id));
     }
 
+    /// <summary>
+    /// Deletes a report.
+    /// </summary>
+    /// <param name="id">Report ID.</param>
     [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Delete(Guid id)
     {
         bool deleted = _reportService.DeleteReport(id);
         return deleted ? NoContent() : NotFound(new { message = $"Report dengan ID {id} tidak ditemukan." });
     }
 
+    /// <summary>
+    /// Updates report status.
+    /// </summary>
+    /// <param name="id">Report ID.</param>
+    /// <param name="request">Target status request. 0 = Diterima, 1 = Diproses, 2 = Selesai, 3 = Ditolak.</param>
+    /// <returns>The updated report.</returns>
     [HttpPatch("{id}/transition")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Transition(Guid id, [FromBody] TransitionReportStatusRequest request)
     {
         var report = _reportService.GetById(id);
@@ -88,14 +152,30 @@ public class ReportController : ControllerBase
         return success ? Ok(_reportService.GetById(id)) : BadRequest(new { message = "Status tidak valid." });
     }
 
+    /// <summary>
+    /// Closes a report directly by setting its status to Selesai.
+    /// </summary>
+    /// <param name="id">Report ID.</param>
+    /// <returns>The updated report.</returns>
     [HttpPatch("{id}/close")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Close(Guid id)
     {
         var report = _reportService.CloseReport(id);
         return report == null ? NotFound(new { message = "Report not found." }) : Ok(report);
     }
 
+    /// <summary>
+    /// Adds text-based evidence to a report.
+    /// </summary>
+    /// <param name="id">Report ID.</param>
+    /// <param name="request">Text evidence request.</param>
+    /// <returns>The created evidence.</returns>
     [HttpPost("{id}/evidences")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult AddEvidence(Guid id, [FromBody] AddEvidenceRequest request)
     {
         try

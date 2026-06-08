@@ -12,6 +12,7 @@ namespace tubes_kpl_squarezoo.Models
         public User ReportedBy { get; set; }
         public List<Evidence<string>> Evidences { get; set; }
         public ReportStatus Status { get; set; }
+        public string TrackingPin { get; set; } = string.Empty;
 
         public Report(string title, string description, User reportedBy)
         {
@@ -30,6 +31,7 @@ namespace tubes_kpl_squarezoo.Models
             ReportedBy = reportedBy;
             Evidences = new List<Evidence<string>>();
             Status = ReportStatus.Diterima;
+            TrackingPin = Random.Shared.Next(100000, 1000000).ToString();
         }
 
         public bool TransitionTo(ReportStatus newStatus)
