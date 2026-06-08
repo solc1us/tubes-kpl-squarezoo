@@ -1,4 +1,3 @@
-using tubes_kpl_squarezoo;
 using tubes_kpl_squarezoo.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,8 +9,6 @@ builder.Services.AddSingleton(new ReportService(reportPath));
 
 string userPath = Path.Combine(builder.Environment.ContentRootPath, "Data", "users.json");
 builder.Services.AddSingleton(new UserService(userPath));
-
-builder.Services.AddScoped<AdminManager>();
 
 // Add services to the container.
 builder.Services.AddControllers(); 

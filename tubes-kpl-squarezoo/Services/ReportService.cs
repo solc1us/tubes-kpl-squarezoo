@@ -1,4 +1,3 @@
-﻿using System.Net.NetworkInformation;
 using System.Text.Json;
 using tubes_kpl_squarezoo.Enums;
 using tubes_kpl_squarezoo.Models;
@@ -7,25 +6,20 @@ namespace tubes_kpl_squarezoo.Services
 {
     public class ReportService
     {
-        // Menggunakan Dictionary untuk O(1) lookup berdasarkan Guid
         private Dictionary<Guid, Report> _reports;
-
-        // Runtime configuration untuk path file
         private string _filePath;
 
         public ReportService(string filePath)
         {
             _filePath = filePath;
             _reports = new Dictionary<Guid, Report>();
-            LoadFromFile(); // Inisialisasi data saat service dibuat 
+            LoadFromFile();
         }
 
-        // Business Logic: Menghasilkan instance Report baru
         public Report CreateReport(Report report)
         {
             if (report == null) throw new ArgumentNullException(nameof(report));
 
-            // Defensive programming: cek duplikasi ID
             if (report.Status != ReportStatus.Diterima)
                 throw new InvalidOperationException("Laporan baru harus memiliki status Diterima.");
 
@@ -34,18 +28,36 @@ namespace tubes_kpl_squarezoo.Services
                 _reports.Add(report.ReportId, report);
                 SaveToFile();
             }
+
             return report;
         }
 
         public List<Report> GetAllReports()
         {
-            // Mengambil semua value dari dictionary dan mengubahnya jadi List
             return _reports.Values.ToList();
+        }
+
+        public List<Report> GetReportsByStatus(ReportStatus status)
+        {
+            return _reports.Values
+                .Where(report => report.Status == status)
+                .ToList();
+        }
+
+        public object GetSummary()
+        {
+            return new
+            {
+                total = _reports.Count,
+                diterima = _reports.Values.Count(report => report.Status == ReportStatus.Diterima),
+                diproses = _reports.Values.Count(report => report.Status == ReportStatus.Diproses),
+                selesai = _reports.Values.Count(report => report.Status == ReportStatus.Selesai),
+                ditolak = _reports.Values.Count(report => report.Status == ReportStatus.Ditolak)
+            };
         }
 
         public Report? GetById(Guid reportId)
         {
-            // Nullable return untuk menangani record yang tidak ditemukan
             return _reports.TryGetValue(reportId, out var report) ? report : null;
         }
 
@@ -53,10 +65,10 @@ namespace tubes_kpl_squarezoo.Services
         {
             var report = GetById(reportId);
             if (report == null) return false;
-            
+
             report.Title = title;
             report.Description = desc;
-        
+
             SaveToFile();
             return true;
         }
@@ -68,36 +80,55 @@ namespace tubes_kpl_squarezoo.Services
                 SaveToFile();
                 return true;
             }
+
             return false;
         }
 
-        // Dedicated method untuk update status agar kontrak API tetap jelas.
         public bool ExecuteTransition(Guid reportId, ReportStatus nextStatus)
         {
             var report = GetById(reportId);
             if (report == null) return false;
 
             bool isTransitionSuccessful = report.TransitionTo(nextStatus);
+            if (!isTransitionSuccessful) return false;
 
-            if (isTransitionSuccessful)
-            {
-                SaveToFile();
-                return true;
-            }
-
-            return false;
+            SaveToFile();
+            return true;
         }
 
-        // File I/O langsung ke JSON
+        public Report? CloseReport(Guid reportId)
+        {
+            var report = GetById(reportId);
+            if (report == null) return null;
+
+            report.Status = ReportStatus.Selesai;
+            SaveToFile();
+            return report;
+        }
+
+        public Evidence<string>? AddEvidenceToReport(Guid reportId, EvidenceType type, string content, string description)
+        {
+            var report = GetById(reportId);
+            if (report == null) return null;
+            if (content == null) throw new ArgumentNullException(nameof(content));
+
+            var evidence = new Evidence<string>(type, content, description);
+            report.AddEvidence(evidence);
+            SaveToFile();
+
+            return evidence;
+        }
+
         public void SaveToFile()
         {
             try
             {
-                string directory = Path.GetDirectoryName(_filePath);
+                string? directory = Path.GetDirectoryName(_filePath);
                 if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
                 {
                     Directory.CreateDirectory(directory);
                 }
+
                 string jsonString = JsonSerializer.Serialize(_reports, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(_filePath, jsonString);
             }
@@ -115,28 +146,14 @@ namespace tubes_kpl_squarezoo.Services
                 {
                     string jsonString = File.ReadAllText(_filePath);
                     var data = JsonSerializer.Deserialize<Dictionary<Guid, Report>>(jsonString);
-                     _reports = data ?? new Dictionary<Guid, Report>();
-            }
+                    _reports = data ?? new Dictionary<Guid, Report>();
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Gagal memuat data: {ex.Message}");
                 _reports = new Dictionary<Guid, Report>();
             }
-        }
-
-        public Evidence<string>? AddEvidenceToReport(Guid reportId, EvidenceType type, string content, string description)
-        {
-            // Pengecekan pre-condition
-            var report = GetById(reportId);
-            if (report == null) return null;
-            if (content == null) throw new ArgumentNullException(nameof(content));
-
-            var evidence = new Evidence<string>(type, content, description);
-            report.AddEvidence(evidence);
-            SaveToFile();
-
-            return evidence;
         }
     }
 }
