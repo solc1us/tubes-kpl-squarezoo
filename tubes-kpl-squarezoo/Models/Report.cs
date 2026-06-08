@@ -10,7 +10,7 @@ namespace tubes_kpl_squarezoo.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public User ReportedBy { get; set; }
-        public List<Evidence<object>> Evidences { get; set; }
+        public List<Evidence<string>> Evidences { get; set; }
         public ReportStatus Status { get; set; }
 
         private static Dictionary<ReportStatus, List<ReportStatus>> transitionTable =
@@ -38,7 +38,7 @@ namespace tubes_kpl_squarezoo.Models
             Title = title;
             Description = description;
             ReportedBy = reportedBy;
-            Evidences = new List<Evidence<object>>();
+            Evidences = new List<Evidence<string>>();
             Status = ReportStatus.Draft;
         }
 
@@ -60,18 +60,12 @@ namespace tubes_kpl_squarezoo.Models
             return transitionTable[Status];
         }
 
-        public void AddEvidence<T>(Evidence<T> evidence)
+        public void AddEvidence(Evidence<string> evidence)
         {
             if (evidence == null)
                 throw new Exception("Evidence tidak boleh null");
 
-            Evidence<object> newEvidence = new Evidence<object>(
-                evidence.Type,
-                evidence.Content,
-                evidence.Description
-            );
-
-            Evidences.Add(newEvidence);
+            Evidences.Add(evidence);
         }
     }
 }

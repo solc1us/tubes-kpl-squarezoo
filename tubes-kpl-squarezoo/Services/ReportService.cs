@@ -128,18 +128,18 @@ namespace tubes_kpl_squarezoo.Services
             }
         }
 
-        public bool AddEvidenceToReport(Guid reportId, EvidenceType type, object content, string description)
+        public Evidence<string>? AddEvidenceToReport(Guid reportId, EvidenceType type, string content, string description)
         {
             // Pengecekan pre-condition
             var report = GetById(reportId);
-            if (report == null) return false;
+            if (report == null) return null;
             if (content == null) throw new ArgumentNullException(nameof(content));
 
-            var evidence = new Evidence<object>(type, content, description);
+            var evidence = new Evidence<string>(type, content, description);
             report.AddEvidence(evidence);
             SaveToFile();
 
-            return true;
+            return evidence;
         }
     }
 }

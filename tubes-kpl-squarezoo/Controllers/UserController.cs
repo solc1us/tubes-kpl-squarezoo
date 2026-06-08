@@ -14,7 +14,7 @@ public class UserController : ControllerBase
     [HttpPost]
     public IActionResult Create([FromBody] CreateUserRequest request)
     {
-        var user = _userService.CreateUser(request.Name, request.PhoneNumber);
+        var user = _userService.CreateUser(request.Name, request.NoHP);
         return Ok(user);
     }
 
@@ -26,7 +26,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            var updatedUser = _userService.UpdateUser(id, request.Name, request.PhoneNumber);
+            var updatedUser = _userService.UpdateUser(id, request.Name, request.NoHP);
             return Ok(updatedUser);
         }
         catch (KeyNotFoundException ex)

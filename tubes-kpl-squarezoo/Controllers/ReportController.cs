@@ -24,7 +24,7 @@ public class ReportController : ControllerBase
         try
         {
             // Cek user dulu, kalau belum ada lempar error
-            var user = _userService.GetById(Guid.Parse(request.UserId));
+            var user = _userService.GetById(request.UserId);
                 
             if (user == null)
             {
@@ -109,8 +109,8 @@ public class ReportController : ControllerBase
     public IActionResult AddEvidence(Guid id, [FromBody] AddEvidenceRequest request)
     {
         // EvidenceType itu Enum (Image, Video, Text, dll)
-        bool success = _reportService.AddEvidenceToReport(id, request.Type, request.Content, request.Description);
-        return success ? Ok("Evidence telah ditambahkan.") : NotFound($"Report dengan id {id} tidak ditemukan.");
+        var evidence = _reportService.AddEvidenceToReport(id, request.Type, request.Content, request.Description);
+        return evidence == null ? NotFound($"Report dengan id {id} tidak ditemukan.") : Ok(evidence);
     }
 
 }

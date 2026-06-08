@@ -2,4 +2,4 @@
 
 namespace tubes_kpl_squarezoo.Models.DTOs;
 
-public record AddEvidenceRequest(EvidenceType Type, object Content, string Description);
+public record AddEvidenceRequest(EvidenceType Type, string Content, string Description);
