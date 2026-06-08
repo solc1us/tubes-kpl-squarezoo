@@ -5,7 +5,7 @@ using tubes_kpl_squarezoo.Models.DTOs;
 namespace tubes_kpl_squarezoo.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/users")]
 public class UserController : ControllerBase
 {
     private readonly UserService _userService;

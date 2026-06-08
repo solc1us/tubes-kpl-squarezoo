@@ -12,6 +12,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+AGENTS.md
+lapor-u-be.zip
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

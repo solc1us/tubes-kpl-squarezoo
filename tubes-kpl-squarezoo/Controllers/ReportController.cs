@@ -6,7 +6,7 @@ using tubes_kpl_squarezoo.Services;
 namespace tubes_kpl_squarezoo.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/reports")]
 public class ReportController : ControllerBase
 {
     private readonly ReportService _reportService;
@@ -105,7 +105,7 @@ public class ReportController : ControllerBase
         return deleted ? NoContent() : NotFound();
     }
 
-    [HttpPost("{id}/evidence")]
+    [HttpPost("{id}/evidences")]
     public IActionResult AddEvidence(Guid id, [FromBody] AddEvidenceRequest request)
     {
         // EvidenceType itu Enum (Image, Video, Text, dll)
