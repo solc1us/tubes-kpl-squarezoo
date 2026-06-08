@@ -2,10 +2,9 @@
 {
     public enum ReportStatus
     {
-        Draft,
-        Submitted,
-        UnderReview,
-        Resolved,
-        Closed
+        Diterima = 0,
+        Diproses = 1,
+        Selesai = 2,
+        Ditolak = 3
     }
 }

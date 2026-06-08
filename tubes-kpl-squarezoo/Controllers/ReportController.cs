@@ -28,7 +28,7 @@ public class ReportController : ControllerBase
                 
             if (user == null)
             {
-                return NotFound($"User dengan ID {request.UserId} tidak ditemukan.");
+                return NotFound(new { message = $"User dengan ID {request.UserId} tidak ditemukan." });
             }
 
             var report = new Report(request.Title, request.Description, user);
@@ -38,7 +38,11 @@ public class ReportController : ControllerBase
         catch (InvalidOperationException ex)
         {
             // Menangkap Contract Violation (Pre-condition)
-            return BadRequest(ex.Message);
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
         }
     }
 
@@ -53,13 +57,13 @@ public class ReportController : ControllerBase
             // return isi dari report yang sudah diupdate, kalau id nya ga ketemu bakal dilempar exception dan ditangkap di catch block
             var report = _reportService.GetById(id);
 
-            return report == null ? NotFound($"Report dengan ID {id} tidak ditemukan.") : Ok(report);
+            return report == null ? NotFound(new { message = $"Report dengan ID {id} tidak ditemukan." }) : Ok(report);
             
         }
         catch (KeyNotFoundException ex)
         {
             // Menangkap Contract Violation (Pre-condition)
-            return NotFound(ex.Message);
+            return NotFound(new { message = ex.Message });
         }
     }
 
@@ -70,24 +74,23 @@ public class ReportController : ControllerBase
     public IActionResult GetById(Guid id)
     {
         var report = _reportService.GetById(id);
-        return report == null ? NotFound($"Report dengan ID {id} tidak ditemukan.") : Ok(report);
+        return report == null ? NotFound(new { message = $"Report dengan ID {id} tidak ditemukan." }) : Ok(report);
     }
 
     [HttpPatch("{id}/transition")]
-    public IActionResult Transition(Guid id, [FromBody] TransitionRequest request)
+    public IActionResult Transition(Guid id, [FromBody] TransitionReportStatusRequest request)
     {
         // Cek dulu apakah ada report dengan id dari user
         var report = _reportService.GetById(id);
         if (report == null)
         {
-            return NotFound($"Report dengan ID {id} tidak ditemukan.");
+            return NotFound(new { message = $"Report dengan ID {id} tidak ditemukan." });
         }
 
-        // ExecuteTransition sudah punya logic Automata + Post-condition
-        bool success = _reportService.ExecuteTransition(id, request.NextStatus);
+        bool success = _reportService.ExecuteTransition(id, request.Status);
 
         if (!success)
-            return BadRequest("Transisi status tidak valid menurut aturan Automata.");
+            return BadRequest(new { message = "Status tidak valid." });
 
         return Ok(_reportService.GetById(id));
     }
@@ -98,19 +101,26 @@ public class ReportController : ControllerBase
         var report = _reportService.GetById(id);
         if (report == null)
         {
-            return NotFound($"Report dengan ID {id} tidak ditemukan.");
+            return NotFound(new { message = $"Report dengan ID {id} tidak ditemukan." });
         }
 
         bool deleted = _reportService.DeleteReport(id);
-        return deleted ? NoContent() : NotFound();
+        return deleted ? NoContent() : NotFound(new { message = $"Report dengan ID {id} tidak ditemukan." });
     }
 
     [HttpPost("{id}/evidences")]
     public IActionResult AddEvidence(Guid id, [FromBody] AddEvidenceRequest request)
     {
-        // EvidenceType itu Enum (Image, Video, Text, dll)
-        var evidence = _reportService.AddEvidenceToReport(id, request.Type, request.Content, request.Description);
-        return evidence == null ? NotFound($"Report dengan id {id} tidak ditemukan.") : Ok(evidence);
+        try
+        {
+            // EvidenceType itu Enum (Image, Video, Text, dll)
+            var evidence = _reportService.AddEvidenceToReport(id, request.Type, request.Content, request.Description);
+            return evidence == null ? NotFound(new { message = $"Report dengan ID {id} tidak ditemukan." }) : Ok(evidence);
+        }
+        catch (ArgumentNullException ex)
+        {
+            return BadRequest(new { message = $"{ex.ParamName} tidak boleh kosong." });
+        }
     }
 
 }

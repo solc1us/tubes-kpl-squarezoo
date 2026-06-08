@@ -14,8 +14,15 @@ public class UserController : ControllerBase
     [HttpPost]
     public IActionResult Create([FromBody] CreateUserRequest request)
     {
-        var user = _userService.CreateUser(request.Name, request.NoHP);
-        return Ok(user);
+        try
+        {
+            var user = _userService.CreateUser(request.Name, request.NoHP);
+            return Ok(user);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpGet]
@@ -31,11 +38,11 @@ public class UserController : ControllerBase
         }
         catch (KeyNotFoundException ex)
         {
-            return NotFound(ex.Message);
+            return NotFound(new { message = ex.Message });
         }
         catch (ArgumentException ex)
         {
-            return BadRequest(ex.Message);
+            return BadRequest(new { message = ex.Message });
         }
     }
 
@@ -43,7 +50,7 @@ public class UserController : ControllerBase
     public IActionResult GetById(Guid id)
     {
         var user = _userService.GetById(id);
-        return user == null ? NotFound($"User dengan ID {id} tidak ditemukan.") : Ok(user);
+        return user == null ? NotFound(new { message = $"User dengan ID {id} tidak ditemukan." }) : Ok(user);
     }
 
     [HttpDelete("{id}")]
@@ -52,11 +59,11 @@ public class UserController : ControllerBase
         var user = _userService.GetById(id);
         if (user == null)
         {
-            return NotFound($"User dengan ID {id} tidak ditemukan.");
+            return NotFound(new { message = $"User dengan ID {id} tidak ditemukan." });
         }
 
         bool deleted = _userService.DeleteUser(id);
-        return deleted ? NoContent() : NotFound();
+        return deleted ? NoContent() : NotFound(new { message = $"User dengan ID {id} tidak ditemukan." });
     }
 
 }

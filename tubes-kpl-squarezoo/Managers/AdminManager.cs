@@ -45,7 +45,7 @@ namespace tubes_kpl_squarezoo
                 .ToDictionary(group => group.Key, group => group.Count());
         }
 
-        // Menutup report jika status sudah valid untuk di-close
+        // Menandai report selesai.
         public bool CloseReport(Guid reportId)
         {
             // Mengambil report berdasarkan ID
@@ -54,8 +54,7 @@ namespace tubes_kpl_squarezoo
             // Return false jika report tidak ditemukan
             if (report == null) return false;
 
-            // Mengubah status report menjadi Closed
-            bool success = report.TransitionTo(ReportStatus.Closed);
+            bool success = report.TransitionTo(ReportStatus.Selesai);
 
             // Simpan perubahan jika transisi berhasil
             if (success)

@@ -13,16 +13,6 @@ namespace tubes_kpl_squarezoo.Models
         public List<Evidence<string>> Evidences { get; set; }
         public ReportStatus Status { get; set; }
 
-        private static Dictionary<ReportStatus, List<ReportStatus>> transitionTable =
-            new Dictionary<ReportStatus, List<ReportStatus>>()
-            {
-                { ReportStatus.Draft, new List<ReportStatus>() { ReportStatus.Submitted } },
-                { ReportStatus.Submitted, new List<ReportStatus>() { ReportStatus.UnderReview } },
-                { ReportStatus.UnderReview, new List<ReportStatus>() { ReportStatus.Resolved } },
-                { ReportStatus.Resolved, new List<ReportStatus>() { ReportStatus.Closed } },
-                { ReportStatus.Closed, new List<ReportStatus>() }
-            };
-
         public Report(string title, string description, User reportedBy)
         {
             if (title == "")
@@ -39,25 +29,21 @@ namespace tubes_kpl_squarezoo.Models
             Description = description;
             ReportedBy = reportedBy;
             Evidences = new List<Evidence<string>>();
-            Status = ReportStatus.Draft;
+            Status = ReportStatus.Diterima;
         }
 
         public bool TransitionTo(ReportStatus newStatus)
         {
-            List<ReportStatus> allowedStatus = GetAllowedTransitions();
+            if (!Enum.IsDefined(typeof(ReportStatus), newStatus))
+                return false;
 
-            if (allowedStatus.Contains(newStatus))
-            {
-                Status = newStatus;
-                return true;
-            }
-
-            return false;
+            Status = newStatus;
+            return true;
         }
 
         public List<ReportStatus> GetAllowedTransitions()
         {
-            return transitionTable[Status];
+            return Enum.GetValues<ReportStatus>().ToList();
         }
 
         public void AddEvidence(Evidence<string> evidence)

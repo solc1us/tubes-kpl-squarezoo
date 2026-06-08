@@ -26,8 +26,8 @@ namespace tubes_kpl_squarezoo.Services
             if (report == null) throw new ArgumentNullException(nameof(report));
 
             // Defensive programming: cek duplikasi ID
-            if (report.Status != ReportStatus.Draft)
-                throw new InvalidOperationException("Laporan baru harus memiliki status Draft.");
+            if (report.Status != ReportStatus.Diterima)
+                throw new InvalidOperationException("Laporan baru harus memiliki status Diterima.");
 
             if (!_reports.ContainsKey(report.ReportId))
             {
@@ -71,23 +71,20 @@ namespace tubes_kpl_squarezoo.Services
             return false;
         }
 
-        // Dedicated Method untuk transisi status agar tetap terkontrol oleh Automata
+        // Dedicated method untuk update status agar kontrak API tetap jelas.
         public bool ExecuteTransition(Guid reportId, ReportStatus nextStatus)
         {
             var report = GetById(reportId);
             if (report == null) return false;
 
-            // Delegate logic transition ke Model (Automata)
             bool isTransitionSuccessful = report.TransitionTo(nextStatus);
 
-            // Kalau transisi valid menurut transitionTable, baru simpan ke JSON
             if (isTransitionSuccessful)
             {
                 SaveToFile();
                 return true;
             }
 
-            // Kalau gagal (transisi ilegal), return false biar pemanggil tau status gak berubah
             return false;
         }
 
