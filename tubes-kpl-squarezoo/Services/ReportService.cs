@@ -128,6 +128,9 @@ namespace tubes_kpl_squarezoo.Services
             if (report == null) return null;
             if (content == null) throw new ArgumentNullException(nameof(content));
 
+            if (!Enum.IsDefined(typeof(EvidenceType), type))
+                throw new ArgumentException("Invalid evidence type.", nameof(type));
+
             var evidence = new Evidence<string>(type, content, description);
             report.AddEvidence(evidence);
             SaveToFile();

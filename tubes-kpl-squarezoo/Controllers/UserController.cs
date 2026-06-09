@@ -18,7 +18,7 @@ public class UserController : ControllerBase
     /// <returns>A raw array of users.</returns>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public IActionResult GetAll() => Ok(_userService.GetAll());
+    public IActionResult GetAll() => Ok(_userService.GetAll().Select(UserResponse.FromUser));
 
     /// <summary>
     /// Gets user by ID.
@@ -31,7 +31,7 @@ public class UserController : ControllerBase
     public IActionResult GetById(Guid id)
     {
         var user = _userService.GetById(id);
-        return user == null ? NotFound(new { message = $"User dengan ID {id} tidak ditemukan." }) : Ok(user);
+        return user == null ? NotFound(new { message = $"User dengan ID {id} tidak ditemukan." }) : Ok(UserResponse.FromUser(user));
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ public class UserController : ControllerBase
         try
         {
             var user = _userService.CreateUser(request.Name, request.NoHP, request.Role, request.Password);
-            return Ok(user);
+            return Ok(UserResponse.FromUser(user));
         }
         catch (ArgumentException ex)
         {
@@ -72,14 +72,7 @@ public class UserController : ControllerBase
             return Unauthorized(new { message = "NoHP atau password tidak valid." });
         }
 
-        return Ok(new
-        {
-            user.UserId,
-            user.Name,
-            user.NoHP,
-            user.Role,
-            permissions = user.GetPermissions()
-        });
+        return Ok(UserResponse.FromUser(user));
     }
 
     /// <summary>
@@ -97,7 +90,7 @@ public class UserController : ControllerBase
         try
         {
             var updatedUser = _userService.UpdateUser(id, request.Name, request.NoHP, request.Role, request.Password);
-            return Ok(updatedUser);
+            return Ok(UserResponse.FromUser(updatedUser));
         }
         catch (KeyNotFoundException ex)
         {

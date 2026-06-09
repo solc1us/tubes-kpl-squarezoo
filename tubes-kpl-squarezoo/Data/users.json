@@ -19,5 +19,12 @@
     "NoHP": "08002",
     "Role": 2,
     "Password": "pimpinan123"
+  },
+  "08987": {
+    "UserId": "fae79f20-b2b9-4561-9eb8-3816b1516c82",
+    "Name": "Budi",
+    "NoHP": "08987",
+    "Role": 0,
+    "Password": "budi123"
   }
 }

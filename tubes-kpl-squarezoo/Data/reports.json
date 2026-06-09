@@ -6,7 +6,9 @@
     "ReportedBy": {
       "UserId": "0a22f889-37d8-4b73-8fcd-a0770f44e05e",
       "Name": "Salman",
-      "NoHP": "08123"
+      "NoHP": "08123",
+      "Role": 0,
+      "Password": null
     },
     "Evidences": [
       {
@@ -22,7 +24,8 @@
         "Description": "testimoni teman korban"
       }
     ],
-    "Status": 2
+    "Status": 2,
+    "TrackingPin": "654466"
   },
   "90b06480-7626-4311-b0dc-d447dccf7d6a": {
     "ReportId": "90b06480-7626-4311-b0dc-d447dccf7d6a",
@@ -31,9 +34,12 @@
     "ReportedBy": {
       "UserId": "0a22f889-37d8-4b73-8fcd-a0770f44e05e",
       "Name": "Salman",
-      "NoHP": "08123"
+      "NoHP": "08123",
+      "Role": 0,
+      "Password": null
     },
     "Evidences": [],
-    "Status": 0
+    "Status": 0,
+    "TrackingPin": "175129"
   }
 }

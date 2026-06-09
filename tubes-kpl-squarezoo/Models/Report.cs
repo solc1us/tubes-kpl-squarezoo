@@ -39,13 +39,21 @@ namespace tubes_kpl_squarezoo.Models
             if (!Enum.IsDefined(typeof(ReportStatus), newStatus))
                 return false;
 
+            if (!GetAllowedTransitions().Contains(newStatus))
+                return false;
+
             Status = newStatus;
             return true;
         }
 
         public List<ReportStatus> GetAllowedTransitions()
         {
-            return Enum.GetValues<ReportStatus>().ToList();
+            return Status switch
+            {
+                ReportStatus.Diterima => new List<ReportStatus> { ReportStatus.Diproses, ReportStatus.Ditolak },
+                ReportStatus.Diproses => new List<ReportStatus> { ReportStatus.Selesai, ReportStatus.Ditolak },
+                _ => new List<ReportStatus>()
+            };
         }
 
         public void AddEvidence(Evidence<string> evidence)

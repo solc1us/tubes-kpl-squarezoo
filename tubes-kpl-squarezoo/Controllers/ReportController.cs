@@ -28,7 +28,8 @@ public class ReportController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public IActionResult GetAll([FromQuery] ReportStatus? status)
     {
-        return Ok(status.HasValue ? _reportService.GetReportsByStatus(status.Value) : _reportService.GetAllReports());
+        var reports = status.HasValue ? _reportService.GetReportsByStatus(status.Value) : _reportService.GetAllReports();
+        return Ok(reports.Select(ReportResponse.FromReport));
     }
 
     /// <summary>
@@ -65,7 +66,7 @@ public class ReportController : ControllerBase
     public IActionResult GetById(Guid id)
     {
         var report = _reportService.GetById(id);
-        return report == null ? NotFound(new { message = $"Report dengan ID {id} tidak ditemukan." }) : Ok(report);
+        return report == null ? NotFound(new { message = $"Report dengan ID {id} tidak ditemukan." }) : Ok(ReportResponse.FromReport(report));
     }
 
     /// <summary>
@@ -89,7 +90,7 @@ public class ReportController : ControllerBase
 
             var report = new Report(request.Title, request.Description, user);
             var result = _reportService.CreateReport(report);
-            return CreatedAtAction(nameof(GetById), new { id = result.ReportId }, result);
+            return CreatedAtAction(nameof(GetById), new { id = result.ReportId }, ReportResponse.FromReport(result));
         }
         catch (Exception ex)
         {
@@ -114,7 +115,8 @@ public class ReportController : ControllerBase
             return NotFound(new { message = $"Report dengan ID {id} tidak ditemukan." });
         }
 
-        return Ok(_reportService.GetById(id));
+        var report = _reportService.GetById(id);
+        return report == null ? NotFound(new { message = $"Report dengan ID {id} tidak ditemukan." }) : Ok(ReportResponse.FromReport(report));
     }
 
     /// <summary>
@@ -138,7 +140,7 @@ public class ReportController : ControllerBase
     /// <returns>The updated report.</returns>
     [HttpPatch("{id}/transition")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Transition(Guid id, [FromBody] TransitionReportStatusRequest request)
     {
@@ -149,7 +151,13 @@ public class ReportController : ControllerBase
         }
 
         bool success = _reportService.ExecuteTransition(id, request.Status);
-        return success ? Ok(_reportService.GetById(id)) : BadRequest(new { message = "Status tidak valid." });
+        if (!success)
+        {
+            return Conflict(new { message = "Invalid status transition." });
+        }
+
+        var updatedReport = _reportService.GetById(id);
+        return Ok(ReportResponse.FromReport(updatedReport!));
     }
 
     /// <summary>
@@ -163,7 +171,7 @@ public class ReportController : ControllerBase
     public IActionResult Close(Guid id)
     {
         var report = _reportService.CloseReport(id);
-        return report == null ? NotFound(new { message = "Report not found." }) : Ok(report);
+        return report == null ? NotFound(new { message = "Report not found." }) : Ok(ReportResponse.FromReport(report));
     }
 
     /// <summary>
@@ -186,6 +194,10 @@ public class ReportController : ControllerBase
         catch (ArgumentNullException ex)
         {
             return BadRequest(new { message = $"{ex.ParamName} tidak boleh kosong." });
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
         }
     }
 }
