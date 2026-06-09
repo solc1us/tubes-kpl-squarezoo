@@ -1,15 +1,13 @@
 {
   "b865968e-c44a-46c9-9117-024e37e2be72": {
     "ReportId": "b865968e-c44a-46c9-9117-024e37e2be72",
+    "ReporterName": "Salman",
+    "ReporterNoHP": "08123",
     "Title": "KS di Cacuk",
     "Description": "Kronologinya 2222",
-    "ReportedBy": {
-      "UserId": "0a22f889-37d8-4b73-8fcd-a0770f44e05e",
-      "Name": "Salman",
-      "NoHP": "08123",
-      "Role": 0,
-      "Password": null
-    },
+    "ReportedPerson": "Terlapor belum diketahui",
+    "Location": "Cacuk",
+    "IncidentDate": "2026-06-09T10:00:00",
     "Evidences": [
       {
         "EvidenceId": "ed1e96b6-ee73-4e6a-bcb8-2495797d143c",
@@ -29,17 +27,35 @@
   },
   "90b06480-7626-4311-b0dc-d447dccf7d6a": {
     "ReportId": "90b06480-7626-4311-b0dc-d447dccf7d6a",
+    "ReporterName": "Salman",
+    "ReporterNoHP": "08123",
     "Title": "KS di Rektorat",
     "Description": "Ini kronologinya beigni ebegini",
-    "ReportedBy": {
-      "UserId": "0a22f889-37d8-4b73-8fcd-a0770f44e05e",
-      "Name": "Salman",
-      "NoHP": "08123",
-      "Role": 0,
-      "Password": null
-    },
+    "ReportedPerson": "Terlapor belum diketahui",
+    "Location": "Rektorat",
+    "IncidentDate": "2026-06-09T10:00:00",
     "Evidences": [],
     "Status": 0,
     "TrackingPin": "175129"
+  },
+  "3b9f3c06-2673-41ec-b2ed-db0b13f12117": {
+    "ReportId": "3b9f3c06-2673-41ec-b2ed-db0b13f12117",
+    "ReporterName": "Salman",
+    "ReporterNoHP": "08123",
+    "Title": "Testing Report Guest",
+    "Description": "Deskripsi testing",
+    "ReportedPerson": "Terlapor Belum Diketahui",
+    "Location": "GKU",
+    "IncidentDate": "2026-06-09T05:44:23.204Z",
+    "Evidences": [
+      {
+        "EvidenceId": "aa904916-9520-4296-b619-bcf3c6b017f1",
+        "Type": 0,
+        "Content": "Tes",
+        "Description": "strtesssssing"
+      }
+    ],
+    "Status": 0,
+    "TrackingPin": "841738"
   }
 }

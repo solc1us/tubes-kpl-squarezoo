@@ -11,12 +11,10 @@ namespace tubes_kpl_squarezoo.Controllers;
 public class ReportController : ControllerBase
 {
     private readonly ReportService _reportService;
-    private readonly UserService _userService;
 
-    public ReportController(ReportService reportService, UserService userService)
+    public ReportController(ReportService reportService)
     {
         _reportService = reportService;
-        _userService = userService;
     }
 
     /// <summary>
@@ -25,7 +23,7 @@ public class ReportController : ControllerBase
     /// <param name="status">Optional report status filter. 0 = Diterima, 1 = Diproses, 2 = Selesai, 3 = Ditolak.</param>
     /// <returns>A raw array of reports.</returns>
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IEnumerable<ReportResponse>), StatusCodes.Status200OK)]
     public IActionResult GetAll([FromQuery] ReportStatus? status)
     {
         var reports = status.HasValue ? _reportService.GetReportsByStatus(status.Value) : _reportService.GetAllReports();
@@ -46,13 +44,13 @@ public class ReportController : ControllerBase
     /// <param name="request">Report tracking request.</param>
     /// <returns>Public tracking data for the matching report.</returns>
     [HttpPost("track")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ReportResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Track([FromBody] TrackReportRequest request)
     {
         var trackingData = _reportService.TrackReport(request.ReportId, request.Pin);
-        return trackingData == null ? Unauthorized(new { message = "Report ID atau PIN tidak valid." }) : Ok(trackingData);
+        return trackingData == null ? Unauthorized(new { message = "Invalid report ID or PIN." }) : Ok(trackingData);
     }
 
     /// <summary>
@@ -61,7 +59,7 @@ public class ReportController : ControllerBase
     /// <param name="id">Report ID.</param>
     /// <returns>The matching report.</returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ReportResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult GetById(Guid id)
     {
@@ -75,22 +73,26 @@ public class ReportController : ControllerBase
     /// <param name="request">Report creation request.</param>
     /// <returns>The created report.</returns>
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(CreateReportResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult Create([FromBody] CreateReportRequest request)
     {
         try
         {
-            var user = _userService.GetById(request.UserId);
-            if (user == null)
-            {
-                return NotFound(new { message = $"User dengan ID {request.UserId} tidak ditemukan." });
-            }
-
-            var report = new Report(request.Title, request.Description, user);
+            var report = new Report(
+                request.ReporterName,
+                request.ReporterNoHP,
+                request.Title,
+                request.Description,
+                request.ReportedPerson,
+                request.Location,
+                request.IncidentDate);
             var result = _reportService.CreateReport(report);
-            return CreatedAtAction(nameof(GetById), new { id = result.ReportId }, ReportResponse.FromReport(result));
+            return CreatedAtAction(
+                nameof(GetById),
+                new { id = result.ReportId },
+                new CreateReportResponse(result.ReportId, result.TrackingPin, "Laporan berhasil dibuat."));
         }
         catch (Exception ex)
         {
@@ -181,15 +183,15 @@ public class ReportController : ControllerBase
     /// <param name="request">Text evidence request.</param>
     /// <returns>The created evidence.</returns>
     [HttpPost("{id}/evidences")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Evidence<string>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult AddEvidence(Guid id, [FromBody] AddEvidenceRequest request)
     {
         try
         {
-            var evidence = _reportService.AddEvidenceToReport(id, request.Type, request.Content, request.Description);
-            return evidence == null ? NotFound(new { message = $"Report dengan ID {id} tidak ditemukan." }) : Ok(evidence);
+            var evidence = _reportService.AddEvidenceToReport(id, request.Pin, request.Type, request.Content, request.Description);
+            return evidence == null ? Unauthorized(new { message = "Invalid report ID or PIN." }) : Ok(evidence);
         }
         catch (ArgumentNullException ex)
         {

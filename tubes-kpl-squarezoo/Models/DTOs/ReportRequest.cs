@@ -7,6 +7,16 @@ using tubes_kpl_squarezoo.Enums;
 public record CreateReportRequest
 {
     /// <summary>
+    /// Reporter name.
+    /// </summary>
+    public string ReporterName { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Reporter phone number used for follow-up.
+    /// </summary>
+    public string ReporterNoHP { get; init; } = string.Empty;
+
+    /// <summary>
     /// Report title.
     /// </summary>
     public string Title { get; init; } = string.Empty;
@@ -17,9 +27,19 @@ public record CreateReportRequest
     public string Description { get; init; } = string.Empty;
 
     /// <summary>
-    /// ID of the Pelapor submitting the report.
+    /// Reported person's name.
     /// </summary>
-    public Guid UserId { get; init; }
+    public string ReportedPerson { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Incident location.
+    /// </summary>
+    public string Location { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Incident date and time.
+    /// </summary>
+    public DateTime IncidentDate { get; init; }
 }
 
 /// <summary>

@@ -7,28 +7,61 @@ namespace tubes_kpl_squarezoo.Models
     public class Report
     {
         public Guid ReportId { get; set; }
+        public string ReporterName { get; set; }
+        public string ReporterNoHP { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public User ReportedBy { get; set; }
+        public string ReportedPerson { get; set; }
+        public string Location { get; set; }
+        public DateTime IncidentDate { get; set; }
         public List<Evidence<string>> Evidences { get; set; }
         public ReportStatus Status { get; set; }
         public string TrackingPin { get; set; } = string.Empty;
 
-        public Report(string title, string description, User reportedBy)
+        public Report()
         {
-            if (title == "")
+            ReportId = Guid.NewGuid();
+            ReporterName = string.Empty;
+            ReporterNoHP = string.Empty;
+            Title = string.Empty;
+            Description = string.Empty;
+            ReportedPerson = string.Empty;
+            Location = string.Empty;
+            IncidentDate = DateTime.MinValue;
+            Evidences = new List<Evidence<string>>();
+            Status = ReportStatus.Diterima;
+            TrackingPin = string.Empty;
+        }
+
+        public Report(
+            string reporterName,
+            string reporterNoHP,
+            string title,
+            string description,
+            string reportedPerson,
+            string location,
+            DateTime incidentDate)
+        {
+            if (string.IsNullOrWhiteSpace(reporterName))
+                throw new Exception("Nama pelapor tidak boleh kosong");
+
+            if (string.IsNullOrWhiteSpace(reporterNoHP))
+                throw new Exception("Nomor HP pelapor tidak boleh kosong");
+
+            if (string.IsNullOrWhiteSpace(title))
                 throw new Exception("Title tidak boleh kosong");
 
-            if (description == "")
+            if (string.IsNullOrWhiteSpace(description))
                 throw new Exception("Description tidak boleh kosong");
 
-            if (reportedBy == null)
-                throw new Exception("User pelapor tidak boleh null");
-
             ReportId = Guid.NewGuid();
+            ReporterName = reporterName;
+            ReporterNoHP = reporterNoHP;
             Title = title;
             Description = description;
-            ReportedBy = reportedBy;
+            ReportedPerson = reportedPerson;
+            Location = location;
+            IncidentDate = incidentDate;
             Evidences = new List<Evidence<string>>();
             Status = ReportStatus.Diterima;
             TrackingPin = Random.Shared.Next(100000, 1000000).ToString();

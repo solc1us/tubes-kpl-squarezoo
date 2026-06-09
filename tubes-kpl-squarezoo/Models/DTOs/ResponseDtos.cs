@@ -16,20 +16,31 @@ public record UserResponse(
 
 public record ReportResponse(
     Guid ReportId,
+    string ReporterName,
+    string ReporterNoHP,
     string Title,
     string Description,
-    UserResponse ReportedBy,
+    string ReportedPerson,
+    string Location,
+    DateTime IncidentDate,
     IEnumerable<Evidence<string>> Evidences,
-    ReportStatus Status,
-    string TrackingPin)
+    ReportStatus Status)
 {
     public static ReportResponse FromReport(Report report) =>
         new(
             report.ReportId,
+            report.ReporterName,
+            report.ReporterNoHP,
             report.Title,
             report.Description,
-            UserResponse.FromUser(report.ReportedBy),
+            report.ReportedPerson,
+            report.Location,
+            report.IncidentDate,
             report.Evidences,
-            report.Status,
-            report.TrackingPin);
+            report.Status);
 }
+
+public record CreateReportResponse(
+    Guid ReportId,
+    string TrackingPin,
+    string Message);

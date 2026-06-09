@@ -70,8 +70,13 @@ namespace tubes_kpl_squarezoo.Services
             return new
             {
                 report.ReportId,
+                report.ReporterName,
+                report.ReporterNoHP,
                 report.Title,
                 report.Description,
+                report.ReportedPerson,
+                report.Location,
+                report.IncidentDate,
                 report.Status,
                 report.Evidences
             };
@@ -122,10 +127,11 @@ namespace tubes_kpl_squarezoo.Services
             return report;
         }
 
-        public Evidence<string>? AddEvidenceToReport(Guid reportId, EvidenceType type, string content, string description)
+        public Evidence<string>? AddEvidenceToReport(Guid reportId, string pin, EvidenceType type, string content, string description)
         {
             var report = GetById(reportId);
             if (report == null) return null;
+            if (report.TrackingPin != pin) return null;
             if (content == null) throw new ArgumentNullException(nameof(content));
 
             if (!Enum.IsDefined(typeof(EvidenceType), type))
