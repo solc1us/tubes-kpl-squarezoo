@@ -18,16 +18,34 @@ public class ReportController : ControllerBase
     }
 
     /// <summary>
-    /// Gets all reports, optionally filtered by status.
+    /// Gets paginated reports, optionally filtered by status and title.
     /// </summary>
     /// <param name="status">Optional report status filter. 0 = Diterima, 1 = Diproses, 2 = Selesai, 3 = Ditolak.</param>
-    /// <returns>A raw array of reports.</returns>
+    /// <param name="title">Optional case-insensitive title search.</param>
+    /// <param name="page">Page number. Defaults to 1.</param>
+    /// <param name="pageSize">Page size. Defaults to 10 and is capped at 50.</param>
+    /// <returns>A paginated list of reports.</returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<ReportResponse>), StatusCodes.Status200OK)]
-    public IActionResult GetAll([FromQuery] ReportStatus? status)
+    [ProducesResponseType(typeof(PaginatedResponse<ReportResponse>), StatusCodes.Status200OK)]
+    public IActionResult GetAll(
+        [FromQuery] ReportStatus? status,
+        [FromQuery] string? title,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10)
     {
-        var reports = status.HasValue ? _reportService.GetReportsByStatus(status.Value) : _reportService.GetAllReports();
-        return Ok(reports.Select(ReportResponse.FromReport));
+        var reports = _reportService.GetReports(status, title, page, pageSize);
+        var response = new PaginatedResponse<ReportResponse>
+        {
+            Items = reports.Items.Select(ReportResponse.FromReport).ToList(),
+            Page = reports.Page,
+            PageSize = reports.PageSize,
+            TotalItems = reports.TotalItems,
+            TotalPages = reports.TotalPages,
+            HasPreviousPage = reports.HasPreviousPage,
+            HasNextPage = reports.HasNextPage
+        };
+
+        return Ok(response);
     }
 
     /// <summary>

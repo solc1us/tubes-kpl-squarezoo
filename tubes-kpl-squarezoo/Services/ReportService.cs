@@ -1,6 +1,7 @@
 using System.Text.Json;
 using tubes_kpl_squarezoo.Enums;
 using tubes_kpl_squarezoo.Models;
+using tubes_kpl_squarezoo.Models.DTOs;
 
 namespace tubes_kpl_squarezoo.Services
 {
@@ -42,6 +43,42 @@ namespace tubes_kpl_squarezoo.Services
             return _reports.Values
                 .Where(report => report.Status == status)
                 .ToList();
+        }
+
+        public PaginatedResponse<Report> GetReports(ReportStatus? status, string? title, int page, int pageSize)
+        {
+            page = page < 1 ? 1 : page;
+            pageSize = pageSize < 1 ? 10 : Math.Min(pageSize, 50);
+
+            IEnumerable<Report> query = _reports.Values;
+
+            if (status.HasValue)
+            {
+                query = query.Where(report => report.Status == status.Value);
+            }
+
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                query = query.Where(report => report.Title.Contains(title, StringComparison.OrdinalIgnoreCase));
+            }
+
+            int totalItems = query.Count();
+            int totalPages = totalItems == 0 ? 0 : (int)Math.Ceiling(totalItems / (double)pageSize);
+            var items = query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return new PaginatedResponse<Report>
+            {
+                Items = items,
+                Page = page,
+                PageSize = pageSize,
+                TotalItems = totalItems,
+                TotalPages = totalPages,
+                HasPreviousPage = page > 1,
+                HasNextPage = page < totalPages
+            };
         }
 
         public object GetSummary()
