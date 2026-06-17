@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+using System.Text.Json;
+using tubes_kpl_squarezoo.Enums;
 using tubes_kpl_squarezoo.Models;
 
 namespace tubes_kpl_squarezoo.Services;
@@ -15,16 +16,15 @@ public class UserService
         LoadFromFile();
     }
 
-    public User CreateUser(string name, string phone)
+    public User CreateUser(string name, string phone, UserRole role = UserRole.Pelapor, string? password = null)
     {
-        // Pengecekan body request: pastikan name dan phone tidak kosong
         if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(phone))
             throw new ArgumentException("Name dan Phone tidak boleh kosong.");
 
         if (_users.ContainsKey(phone))
-            return _users[phone]; // Kalo udah ada, balikin yang lama
+            return _users[phone];
 
-        var newUser = new User(name, phone);
+        var newUser = new User(name, phone, role, password);
         _users.Add(phone, newUser);
         SaveToFile();
 
@@ -33,55 +33,63 @@ public class UserService
 
     public List<User> GetAll() => _users.Values.ToList();
 
-    public User GetById(Guid id)
+    public User? GetById(Guid id)
     {
-        var user = _users.Values.FirstOrDefault(u => u.UserId == id);
-        if (user == null)
-            return null;
-        return user;
+        return _users.Values.FirstOrDefault(u => u.UserId == id);
     }
 
-    // UpdateUser bisa dipakai untuk update nama atau nomor HP
-    public User UpdateUser(Guid id, string name, string phone)
+    public User UpdateUser(Guid id, string name, string phone, UserRole role = UserRole.Pelapor, string? password = null)
     {
         var user = _users.Values.FirstOrDefault(u => u.UserId == id);
         if (user == null)
             throw new KeyNotFoundException("User tidak ditemukan.");
 
-        // Pengecekan body request: pastikan name dan phone tidak kosong
         if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(phone))
             throw new ArgumentException("Name dan Phone tidak boleh kosong.");
 
-        // Kalo nomor HP baru udah dipakai sama user lain, gak boleh update
         if (_users.ContainsKey(phone) && _users[phone].UserId != id)
             throw new ArgumentException("Nomor HP sudah digunakan oleh user lain.");
 
-        // Hapus user lama dari dictionary kalo nomor HP berubah
         if (user.NoHP != phone)
             _users.Remove(user.NoHP);
 
         user.Name = name;
         user.NoHP = phone;
-        _users[phone] = user; // Update dengan nomor HP baru
+        user.Role = role;
+        user.Password = password;
+        _users[phone] = user;
 
         SaveToFile();
         return user;
-
     }
 
-    // Delete user berdasarkan ID
     public bool DeleteUser(Guid id)
     {
         var user = _users.Values.FirstOrDefault(u => u.UserId == id);
         if (user == null)
             return false;
+
         _users.Remove(user.NoHP);
         SaveToFile();
         return true;
     }
 
+    public User? Login(string noHP, string password)
+    {
+        if (!_users.TryGetValue(noHP, out var user))
+            return null;
+
+        return user.Password == password ? user : null;
+    }
+
     private void SaveToFile()
     {
+        string? directory = Path.GetDirectoryName(_filePath);
+        if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+
         string jsonString = JsonSerializer.Serialize(_users, new JsonSerializerOptions { WriteIndented = true });
         File.WriteAllText(_filePath, jsonString);
     }

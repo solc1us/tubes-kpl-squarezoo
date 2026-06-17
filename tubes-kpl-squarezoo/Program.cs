@@ -1,5 +1,6 @@
-using tubes_kpl_squarezoo;
 using tubes_kpl_squarezoo.Services;
+using Microsoft.OpenApi;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -8,15 +9,25 @@ var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 string reportPath = Path.Combine(builder.Environment.ContentRootPath, "Data", "reports.json");
 builder.Services.AddSingleton(new ReportService(reportPath));
 
-string userPath = Path.Combine(builder.Environment.ContentRootPath, "data", "users.json");
+string userPath = Path.Combine(builder.Environment.ContentRootPath, "Data", "users.json");
 builder.Services.AddSingleton(new UserService(userPath));
-
-builder.Services.AddScoped<AdminManager>();
 
 // Add services to the container.
 builder.Services.AddControllers(); 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Lapor-U API",
+        Version = "v1",
+        Description = "Backend API for Lapor-U MVP reporting and case management system."
+    });
+
+    string xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath);
+});
 
 builder.Services.AddCors(options =>
 {

@@ -27,14 +27,14 @@ namespace tubes_kpl_squarezoo.Models
 
             switch (Type)
             {
-                case EvidenceType.Testimony:
-                    return "[Testimony] " + (text.Length > 50 ? text.Substring(0, 50) + "..." : text);
+                case EvidenceType.Testimoni:
+                    return "[Testimoni] " + (text.Length > 50 ? text.Substring(0, 50) + "..." : text);
 
-                case EvidenceType.Document:
-                    return "[Document] " + text;
+                case EvidenceType.KronologiTambahan:
+                    return "[Kronologi Tambahan] " + text;
 
-                case EvidenceType.MediaLink:
-                    return "[Media] " + text;
+                case EvidenceType.CatatanPendukung:
+                    return "[Catatan Pendukung] " + text;
 
                 default:
                     return text;
@@ -50,14 +50,14 @@ namespace tubes_kpl_squarezoo.Models
 
             switch (Type)
             {
-                case EvidenceType.Testimony:
+                case EvidenceType.Testimoni:
                     return text.Length >= 10;
 
-                case EvidenceType.Document:
+                case EvidenceType.KronologiTambahan:
                     return !string.IsNullOrWhiteSpace(text);
 
-                case EvidenceType.MediaLink:
-                    return Uri.IsWellFormedUriString(text, UriKind.Absolute);
+                case EvidenceType.CatatanPendukung:
+                    return !string.IsNullOrWhiteSpace(text);
 
                 default:
                     return false;

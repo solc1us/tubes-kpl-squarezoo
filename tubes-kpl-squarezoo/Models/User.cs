@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using tubes_kpl_squarezoo.Enums;
 
 namespace tubes_kpl_squarezoo.Models
 {
@@ -7,32 +8,31 @@ namespace tubes_kpl_squarezoo.Models
         public Guid UserId { get; set; }
         public string Name { get; set; }
         public string NoHP { get; set; }
+        public UserRole Role { get; set; }
+        public string? Password { get; set; }
 
-        private Dictionary<string, bool> permissions;
-
-        public User(string name, string noHP)
+        public User(string name, string noHP, UserRole role = UserRole.Pelapor, string? password = null)
         {
             UserId = Guid.NewGuid();
             Name = name;
             NoHP = noHP;
-            permissions = new Dictionary<string, bool>();
-        }
-
-
-        public void AddPermission(string action)
-        {
-            if (!permissions.ContainsKey(action))
-                permissions.Add(action, true);
+            Role = role;
+            Password = password;
         }
 
         public bool CanPerform(string action)
         {
-            return permissions.ContainsKey(action) && permissions[action];
+            return GetPermissions().Contains(action);
         }
 
         public List<string> GetPermissions()
         {
-            return permissions.Keys.ToList();
+            return Role switch
+            {
+                UserRole.Admin => new List<string> { "ViewReports", "UpdateReportStatus", "CloseReport" },
+                UserRole.Pimpinan => new List<string> { "ViewSummary" },
+                _ => new List<string> { "CreateReport", "TrackReport" }
+            };
         }
     }
 }

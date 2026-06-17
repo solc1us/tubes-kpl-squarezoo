@@ -1,4 +1,4 @@
-# Sexual Violence Reporting System (SVRS)
+# Sistem Pengaduan Kekerasan Seksual (SPKS)
 Sistem pengaduan kekerasan seksual berbasis C# yang fokus pada fungsionalitas CRUD, integritas data, dan manajemen alur status menggunakan *State Machine*. Project ini dibuat untuk memenuhi tugas mata kuliah Konstruksi Perangkat Lunak dengan penekanan pada penerapan teknik desain perangkat lunak yang *robust* dan *testable*.
 
 ## 🚀 Core Technologies & Techniques

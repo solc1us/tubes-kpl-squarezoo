@@ -2,11 +2,29 @@
   "08123": {
     "UserId": "0a22f889-37d8-4b73-8fcd-a0770f44e05e",
     "Name": "Salman",
-    "NoHP": "08123"
+    "NoHP": "08123",
+    "Role": 0,
+    "Password": null
+  },
+  "08001": {
+    "UserId": "359323e8-7d4d-4e93-b3e5-3cd1b280a8ed",
+    "Name": "Admin Satgas",
+    "NoHP": "08001",
+    "Role": 1,
+    "Password": "admin123"
+  },
+  "08002": {
+    "UserId": "f4c50412-72ff-44fd-a157-4adcb322d6f2",
+    "Name": "Pimpinan",
+    "NoHP": "08002",
+    "Role": 2,
+    "Password": "pimpinan123"
   },
   "08987": {
-    "UserId": "359323e8-7d4d-4e93-b3e5-3cd1b280a8ed",
-    "Name": "Rama",
-    "NoHP": "08987"
+    "UserId": "fae79f20-b2b9-4561-9eb8-3816b1516c82",
+    "Name": "Budi",
+    "NoHP": "08987",
+    "Role": 0,
+    "Password": "budi123"
   }
 }
