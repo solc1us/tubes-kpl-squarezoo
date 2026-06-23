@@ -1,106 +1,363 @@
 {
-  "b865968e-c44a-46c9-9117-024e37e2be72": {
-    "ReportId": "b865968e-c44a-46c9-9117-024e37e2be72",
-    "ReporterName": "Salman",
-    "ReporterNoHP": "08123",
-    "Title": "KS di Cacuk",
-    "Description": "Kronologinya 2222",
-    "ReportedPerson": "Terlapor belum diketahui",
-    "Location": "Cacuk",
-    "IncidentDate": "2026-06-09T10:00:00",
+  "4c8c3a7a-3b1e-4d65-9f8a-1f0f4bbd6b21": {
+    "ReportId": "4c8c3a7a-3b1e-4d65-9f8a-1f0f4bbd6b21",
+    "ReporterName": "Nadia Putri",
+    "ReporterNoHP": "081234567890",
+    "Title": "Pelecehan Verbal Di Koridor Fakultas",
+    "Description": "Pelapor menyampaikan adanya ucapan tidak pantas yang diterima saat berada di koridor fakultas setelah kegiatan perkuliahan selesai.",
+    "ReportedPerson": "Mahasiswa Berinisial R",
+    "Location": "Koridor Fakultas",
+    "IncidentDate": "2026-06-03T09:30:00",
+    "Evidences": [],
+    "Status": 0,
+    "TrackingPin": "481926"
+  },
+  "7d2a9f13-6d47-49bc-8cf7-ec47e18b30df": {
+    "ReportId": "7d2a9f13-6d47-49bc-8cf7-ec47e18b30df",
+    "ReporterName": "Alya Rahma",
+    "ReporterNoHP": "082112223333",
+    "Title": "Perilaku Tidak Pantas Di Ruang Kelas",
+    "Description": "Pelapor melaporkan adanya perilaku tidak pantas yang terjadi saat kegiatan kelas berlangsung dan membuat pelapor merasa tidak nyaman.",
+    "ReportedPerson": "Mahasiswa Berinisial D",
+    "Location": "Ruang Kelas A-101",
+    "IncidentDate": "2026-06-05T13:15:00",
     "Evidences": [
       {
-        "EvidenceId": "ed1e96b6-ee73-4e6a-bcb8-2495797d143c",
+        "EvidenceId": "6f9d7c1e-7e5b-4a6c-a91d-f1e478a81d30",
+        "Type": 0,
+        "Content": "Saksi melihat pelapor keluar kelas dalam kondisi panik setelah kejadian berlangsung.",
+        "Description": "Testimoni dari teman sekelas pelapor."
+      },
+      {
+        "EvidenceId": "0a4c8e2b-42d0-487d-9db6-9083cf91c5d1",
         "Type": 1,
-        "Content": "teskonten",
-        "Description": "ini keterangan dari korban"
-      },
-      {
-        "EvidenceId": "5deac4b1-9745-4ced-b9e9-8ba8d4effce5",
-        "Type": 0,
-        "Content": "teskonten",
-        "Description": "testimoni teman korban"
-      }
-    ],
-    "Status": 2,
-    "TrackingPin": "654466"
-  },
-  "90b06480-7626-4311-b0dc-d447dccf7d6a": {
-    "ReportId": "90b06480-7626-4311-b0dc-d447dccf7d6a",
-    "ReporterName": "Salman",
-    "ReporterNoHP": "08123",
-    "Title": "KS di Rektorat",
-    "Description": "Ini kronologinya beigni ebegini",
-    "ReportedPerson": "Terlapor belum diketahui",
-    "Location": "Rektorat",
-    "IncidentDate": "2026-06-09T10:00:00",
-    "Evidences": [],
-    "Status": 0,
-    "TrackingPin": "175129"
-  },
-  "3b9f3c06-2673-41ec-b2ed-db0b13f12117": {
-    "ReportId": "3b9f3c06-2673-41ec-b2ed-db0b13f12117",
-    "ReporterName": "Salman",
-    "ReporterNoHP": "08123",
-    "Title": "Testing Report Guest",
-    "Description": "Deskripsi testing",
-    "ReportedPerson": "Terlapor Belum Diketahui",
-    "Location": "GKU",
-    "IncidentDate": "2026-06-09T05:44:23.204Z",
-    "Evidences": [
-      {
-        "EvidenceId": "aa904916-9520-4296-b619-bcf3c6b017f1",
-        "Type": 0,
-        "Content": "Tes",
-        "Description": "strtesssssing"
-      }
-    ],
-    "Status": 0,
-    "TrackingPin": "841738"
-  },
-  "87eee980-f82c-4396-a90d-3768bd0f1309": {
-    "ReportId": "87eee980-f82c-4396-a90d-3768bd0f1309",
-    "ReporterName": "Salomon",
-    "ReporterNoHP": "08153",
-    "Title": "Judul Laporan 1",
-    "Description": "Ini kronologinya",
-    "ReportedPerson": "Tidak diketahui",
-    "Location": "TUCH",
-    "IncidentDate": "2026-06-17T22:06:00.4673717+07:00",
-    "Evidences": [],
-    "Status": 0,
-    "TrackingPin": "306851"
-  },
-  "787aed1d-e5e5-497d-8fb7-854391e38325": {
-    "ReportId": "787aed1d-e5e5-497d-8fb7-854391e38325",
-    "ReporterName": "aaa",
-    "ReporterNoHP": "0813514",
-    "Title": "juduul",
-    "Description": "asdas",
-    "ReportedPerson": "Tidak diketahui",
-    "Location": "TUCH",
-    "IncidentDate": "2026-06-17T22:27:00",
-    "Evidences": [
-      {
-        "EvidenceId": "f785362f-198e-4229-8022-3d63c620cf24",
-        "Type": 0,
-        "Content": "asdas",
-        "Description": "asd"
-      },
-      {
-        "EvidenceId": "cc165bbb-0daf-4e2a-96ba-771fb7a87083",
-        "Type": 0,
-        "Content": "aa",
-        "Description": "aaaaaaaaaaa"
-      },
-      {
-        "EvidenceId": "1a1df685-9ec5-403e-bffc-d2dff5a3d61e",
-        "Type": 0,
-        "Content": "asd",
-        "Description": "dddddddd"
+        "Content": "Kejadian berlangsung sekitar pukul 13.15 setelah sesi diskusi kelompok selesai.",
+        "Description": "Kronologi tambahan dari pelapor."
       }
     ],
     "Status": 1,
-    "TrackingPin": "171680"
+    "TrackingPin": "739204"
+  },
+  "e45d48e6-340c-4d9a-a6ff-8b3554d4a71e": {
+    "ReportId": "e45d48e6-340c-4d9a-a6ff-8b3554d4a71e",
+    "ReporterName": "Raka Pratama",
+    "ReporterNoHP": "081398765432",
+    "Title": "Laporan Gangguan Di Area Parkir",
+    "Description": "Pelapor menyampaikan laporan mengenai gangguan yang terjadi di area parkir kampus setelah kegiatan organisasi selesai.",
+    "ReportedPerson": "Terlapor Belum Diketahui",
+    "Location": "Area Parkir Gedung B",
+    "IncidentDate": "2026-06-07T18:45:00",
+    "Evidences": [
+      {
+        "EvidenceId": "9833d2ef-8d34-4120-bc06-1e8436cb76cb",
+        "Type": 2,
+        "Content": "Pelapor mencatat waktu kejadian dan lokasi kendaraan berada.",
+        "Description": "Catatan pendukung dari pelapor."
+      }
+    ],
+    "Status": 0,
+    "TrackingPin": "592817"
+  },
+  "9a71741c-8b63-47d3-a45a-9c0a5b4f2cb1": {
+    "ReportId": "9a71741c-8b63-47d3-a45a-9c0a5b4f2cb1",
+    "ReporterName": "Sinta Maharani",
+    "ReporterNoHP": "081245678901",
+    "Title": "Laporan Perlakuan Tidak Nyaman Saat Rapat",
+    "Description": "Pelapor melaporkan adanya perlakuan yang membuat tidak nyaman selama rapat organisasi mahasiswa berlangsung.",
+    "ReportedPerson": "Anggota Organisasi Berinisial T",
+    "Location": "Ruang Rapat Organisasi",
+    "IncidentDate": "2026-06-10T16:00:00",
+    "Evidences": [
+      {
+        "EvidenceId": "2e7ed8f1-fcc5-48c8-b7ad-b5a23dce3d72",
+        "Type": 0,
+        "Content": "Saksi menyatakan bahwa pelapor terlihat tidak nyaman setelah interaksi tersebut.",
+        "Description": "Testimoni dari peserta rapat."
+      },
+      {
+        "EvidenceId": "5471be61-3f16-4c96-92c2-5a5b69e65921",
+        "Type": 2,
+        "Content": "Pelapor menyimpan catatan waktu dan daftar peserta yang hadir dalam rapat.",
+        "Description": "Catatan pendukung proses pemeriksaan."
+      }
+    ],
+    "Status": 2,
+    "TrackingPin": "864130"
+  },
+  "3f4b0370-0d28-4a85-86d7-7a9c44b3f2ad": {
+    "ReportId": "3f4b0370-0d28-4a85-86d7-7a9c44b3f2ad",
+    "ReporterName": "Dimas Saputra",
+    "ReporterNoHP": "087700112233",
+    "Title": "Pengaduan Interaksi Tidak Pantas Di Perpustakaan",
+    "Description": "Pelapor mengajukan laporan terkait interaksi tidak pantas yang terjadi di area perpustakaan kampus.",
+    "ReportedPerson": "Pengunjung Berinisial M",
+    "Location": "Perpustakaan Lantai 2",
+    "IncidentDate": "2026-06-12T11:20:00",
+    "Evidences": [
+      {
+        "EvidenceId": "f9ef5cb0-0e55-4baf-b2ce-6bd7a3fa4d94",
+        "Type": 1,
+        "Content": "Pelapor menjelaskan bahwa kejadian terjadi saat area perpustakaan sedang cukup ramai.",
+        "Description": "Kronologi tambahan dari pelapor."
+      }
+    ],
+    "Status": 1,
+    "TrackingPin": "315902"
+  },
+  "ac9e5cf5-7725-4fa1-8b10-10f47b7db764": {
+    "ReportId": "ac9e5cf5-7725-4fa1-8b10-10f47b7db764",
+    "ReporterName": "Maya Lestari",
+    "ReporterNoHP": "081356789012",
+    "Title": "Laporan Pesan Tidak Pantas Melalui Media Sosial",
+    "Description": "Pelapor melaporkan adanya pesan tidak pantas yang diterima melalui media sosial dan berkaitan dengan lingkungan kampus.",
+    "ReportedPerson": "Akun Berinisial K",
+    "Location": "Media Sosial",
+    "IncidentDate": "2026-06-14T20:10:00",
+    "Evidences": [
+      {
+        "EvidenceId": "1a6760d5-b61e-464c-b2de-42fd7f430ec9",
+        "Type": 2,
+        "Content": "Pelapor memiliki catatan waktu pesan diterima dan identitas akun yang mengirimkan pesan.",
+        "Description": "Catatan pendukung dari pelapor."
+      },
+      {
+        "EvidenceId": "95d10244-30c0-4441-8805-2de8d32b8714",
+        "Type": 1,
+        "Content": "Pesan diterima setelah pelapor mengikuti kegiatan kampus pada hari yang sama.",
+        "Description": "Kronologi tambahan terkait waktu kejadian."
+      }
+    ],
+    "Status": 2,
+    "TrackingPin": "720493"
+  },
+  "bb2f6b5e-6f7e-4a2e-b9ae-54138a823d47": {
+    "ReportId": "bb2f6b5e-6f7e-4a2e-b9ae-54138a823d47",
+    "ReporterName": "Fajar Nugroho",
+    "ReporterNoHP": "085812345678",
+    "Title": "Laporan Dugaan Gangguan Di Lingkungan Kampus",
+    "Description": "Pelapor menyampaikan laporan awal mengenai dugaan gangguan di lingkungan kampus, namun data yang diberikan belum cukup untuk proses lanjutan.",
+    "ReportedPerson": "Terlapor Belum Diketahui",
+    "Location": "Area Kampus Blok C",
+    "IncidentDate": "2026-06-16T15:40:00",
+    "Evidences": [],
+    "Status": 3,
+    "TrackingPin": "194638"
+  },
+  "d6d3c877-c6f7-4cbd-8931-84c89d8506f2": {
+    "ReportId": "d6d3c877-c6f7-4cbd-8931-84c89d8506f2",
+    "ReporterName": "Intan Permata",
+    "ReporterNoHP": "081987654321",
+    "Title": "Laporan Kejadian Di Lorong Gedung Kuliah",
+    "Description": "Pelapor melaporkan kejadian yang membuat tidak nyaman saat melewati lorong gedung kuliah pada sore hari.",
+    "ReportedPerson": "Mahasiswa Berinisial S",
+    "Location": "Lorong Gedung Kuliah Umum",
+    "IncidentDate": "2026-06-18T17:25:00",
+    "Evidences": [
+      {
+        "EvidenceId": "3d1c949c-b178-4d5a-85df-09bbf72de4cc",
+        "Type": 0,
+        "Content": "Saksi menyampaikan bahwa pelapor segera meninggalkan lokasi setelah kejadian.",
+        "Description": "Testimoni dari saksi di sekitar lokasi."
+      }
+    ],
+    "Status": 0,
+    "TrackingPin": "508741"
+  },
+  "14b9f6c8-8c1e-45f2-b23f-61f937d7ad10": {
+    "ReportId": "14b9f6c8-8c1e-45f2-b23f-61f937d7ad10",
+    "ReporterName": "Rani Oktaviani",
+    "ReporterNoHP": "081223344556",
+    "Title": "Laporan Kejadian Di Area Kantin",
+    "Description": "Pelapor melaporkan adanya interaksi tidak pantas yang terjadi saat berada di area kantin kampus pada jam istirahat.",
+    "ReportedPerson": "Mahasiswa Berinisial A",
+    "Location": "Kantin Kampus",
+    "IncidentDate": "2026-06-19T12:10:00",
+    "Evidences": [
+      {
+        "EvidenceId": "b79d5bc2-88f7-4c8a-a2d3-7a8dcf6a2b11",
+        "Type": 0,
+        "Content": "Saksi menyampaikan bahwa pelapor terlihat tidak nyaman setelah percakapan berlangsung.",
+        "Description": "Testimoni dari teman pelapor."
+      }
+    ],
+    "Status": 0,
+    "TrackingPin": "628145"
+  },
+  "a3f27c16-d3f5-44b8-bb0c-3df7cf60f02e": {
+    "ReportId": "a3f27c16-d3f5-44b8-bb0c-3df7cf60f02e",
+    "ReporterName": "Bagas Wicaksono",
+    "ReporterNoHP": "082145678901",
+    "Title": "Laporan Pesan Mengganggu Melalui Grup Kelas",
+    "Description": "Pelapor menerima pesan yang mengganggu melalui grup komunikasi kelas dan merasa perlu melaporkannya kepada pihak berwenang.",
+    "ReportedPerson": "Mahasiswa Berinisial F",
+    "Location": "Grup Komunikasi Kelas",
+    "IncidentDate": "2026-06-20T19:45:00",
+    "Evidences": [
+      {
+        "EvidenceId": "a2125790-8f80-4c76-bb32-5c828f8a7db4",
+        "Type": 2,
+        "Content": "Pelapor mencatat waktu pesan diterima dan identitas akun pengirim.",
+        "Description": "Catatan pendukung dari pelapor."
+      },
+      {
+        "EvidenceId": "816be963-6706-4f6d-982c-c1bc77e7f58a",
+        "Type": 1,
+        "Content": "Pesan diterima setelah pelapor mengikuti diskusi kelompok pada hari yang sama.",
+        "Description": "Kronologi tambahan terkait waktu kejadian."
+      }
+    ],
+    "Status": 1,
+    "TrackingPin": "913572"
+  },
+  "5be14af7-5cf8-48d0-8ac1-f80ff7cf1c8a": {
+    "ReportId": "5be14af7-5cf8-48d0-8ac1-f80ff7cf1c8a",
+    "ReporterName": "Larasati Dewi",
+    "ReporterNoHP": "081376543210",
+    "Title": "Laporan Perlakuan Tidak Nyaman Saat Praktikum",
+    "Description": "Pelapor melaporkan adanya perlakuan tidak nyaman yang terjadi selama kegiatan praktikum berlangsung di laboratorium.",
+    "ReportedPerson": "Asisten Praktikum Berinisial N",
+    "Location": "Laboratorium Komputer",
+    "IncidentDate": "2026-06-21T10:30:00",
+    "Evidences": [
+      {
+        "EvidenceId": "7e2f1539-14f7-496f-94e4-7030f7ef6a79",
+        "Type": 0,
+        "Content": "Saksi menyatakan bahwa pelapor terlihat tertekan setelah sesi praktikum selesai.",
+        "Description": "Testimoni dari peserta praktikum."
+      },
+      {
+        "EvidenceId": "8d7e1430-bd53-45f7-a293-5c71dc5cb271",
+        "Type": 2,
+        "Content": "Pelapor mencatat jadwal praktikum dan posisi tempat duduk saat kejadian.",
+        "Description": "Catatan pendukung proses pemeriksaan."
+      }
+    ],
+    "Status": 2,
+    "TrackingPin": "204681"
+  },
+  "6f0917a7-37f7-4910-a416-c07b7969e877": {
+    "ReportId": "6f0917a7-37f7-4910-a416-c07b7969e877",
+    "ReporterName": "Yoga Firmansyah",
+    "ReporterNoHP": "085612345678",
+    "Title": "Laporan Dugaan Gangguan Di Lorong Asrama",
+    "Description": "Pelapor menyampaikan laporan awal mengenai dugaan gangguan yang terjadi di lorong asrama pada malam hari.",
+    "ReportedPerson": "Terlapor Belum Diketahui",
+    "Location": "Lorong Asrama Lantai 2",
+    "IncidentDate": "2026-06-22T21:15:00",
+    "Evidences": [],
+    "Status": 3,
+    "TrackingPin": "746309"
+  },
+  "dc14882e-9ed3-4ab6-9570-1c6294b65fc6": {
+    "ReportId": "dc14882e-9ed3-4ab6-9570-1c6294b65fc6",
+    "ReporterName": "Citra Anggraini",
+    "ReporterNoHP": "081298765432",
+    "Title": "Pengaduan Ucapan Tidak Pantas Saat Kegiatan Kampus",
+    "Description": "Pelapor melaporkan adanya ucapan tidak pantas yang diterima saat mengikuti kegiatan kampus bersama beberapa mahasiswa lain.",
+    "ReportedPerson": "Panitia Berinisial H",
+    "Location": "Aula Kampus",
+    "IncidentDate": "2026-06-23T14:00:00",
+    "Evidences": [
+      {
+        "EvidenceId": "dd2c18a3-8baf-4c8d-8d9a-6e3a1a09b70b",
+        "Type": 1,
+        "Content": "Kejadian terjadi setelah sesi pembagian kelompok kegiatan selesai.",
+        "Description": "Kronologi tambahan dari pelapor."
+      }
+    ],
+    "Status": 2,
+    "TrackingPin": "583920"
+  },
+  "b1f4e2df-1935-4ef4-bf88-d37d048f3a4c": {
+    "ReportId": "b1f4e2df-1935-4ef4-bf88-d37d048f3a4c",
+    "ReporterName": "Mikael Aditya",
+    "ReporterNoHP": "087812345901",
+    "Title": "Laporan Interaksi Tidak Pantas Di Area Tunggu",
+    "Description": "Pelapor melaporkan interaksi tidak pantas yang terjadi ketika sedang menunggu jadwal konsultasi akademik.",
+    "ReportedPerson": "Mahasiswa Berinisial P",
+    "Location": "Area Tunggu Layanan Akademik",
+    "IncidentDate": "2026-06-24T09:20:00",
+    "Evidences": [
+      {
+        "EvidenceId": "44587c36-c016-4624-8b8c-f07e63b84c98",
+        "Type": 0,
+        "Content": "Saksi melihat pelapor berpindah tempat duduk setelah kejadian berlangsung.",
+        "Description": "Testimoni dari mahasiswa lain di area tunggu."
+      }
+    ],
+    "Status": 2,
+    "TrackingPin": "137694"
+  },
+  "c6bdb8b2-bf98-4e45-a25b-0f8b7e12c336": {
+    "ReportId": "c6bdb8b2-bf98-4e45-a25b-0f8b7e12c336",
+    "ReporterName": "Putri Amalia",
+    "ReporterNoHP": "081765432109",
+    "Title": "Laporan Kejadian Setelah Kegiatan Organisasi",
+    "Description": "Pelapor melaporkan kejadian yang membuat tidak nyaman setelah kegiatan organisasi mahasiswa selesai dilaksanakan.",
+    "ReportedPerson": "Anggota Organisasi Berinisial V",
+    "Location": "Sekretariat Organisasi Mahasiswa",
+    "IncidentDate": "2026-06-25T18:35:00",
+    "Evidences": [
+      {
+        "EvidenceId": "d35b45a3-a965-4f5c-8f77-b17888f1ec06",
+        "Type": 1,
+        "Content": "Pelapor menjelaskan bahwa kejadian berlangsung ketika sebagian besar peserta sudah meninggalkan ruangan.",
+        "Description": "Kronologi tambahan dari pelapor."
+      },
+      {
+        "EvidenceId": "b377f2a2-9e0c-4531-8144-a6aa8dfc9e3d",
+        "Type": 2,
+        "Content": "Pelapor mencatat daftar orang yang masih berada di ruangan pada saat kejadian.",
+        "Description": "Catatan pendukung untuk proses pemeriksaan."
+      }
+    ],
+    "Status": 2,
+    "TrackingPin": "905284"
+  },
+  "f9bb5101-b8e6-4726-9f34-7554f4920b3a": {
+    "ReportId": "f9bb5101-b8e6-4726-9f34-7554f4920b3a",
+    "ReporterName": "Hana Safitri",
+    "ReporterNoHP": "083812345670",
+    "Title": "Laporan Dugaan Perilaku Tidak Pantas Di Tangga Gedung",
+    "Description": "Pelapor menyampaikan laporan mengenai dugaan perilaku tidak pantas yang terjadi saat melewati area tangga gedung kampus.",
+    "ReportedPerson": "Terlapor Belum Diketahui",
+    "Location": "Tangga Gedung C",
+    "IncidentDate": "2026-06-26T16:50:00",
+    "Evidences": [],
+    "Status": 3,
+    "TrackingPin": "462718"
+  },
+  "8e4b4481-02de-4edc-bc28-141ff9a30f00": {
+    "ReportId": "8e4b4481-02de-4edc-bc28-141ff9a30f00",
+    "ReporterName": "jremtos",
+    "ReporterNoHP": "08112121221",
+    "Title": "3sdasdaasd24",
+    "Description": "saya lagi tult ada anomalisddsa",
+    "ReportedPerson": "wqwwqwqqw",
+    "Location": "tult",
+    "IncidentDate": "2026-06-17T18:11:00",
+    "Evidences": [
+      {
+        "EvidenceId": "1c85347f-9060-4d5e-b3a5-6b7a670c39c5",
+        "Type": 0,
+        "Content": "a[paaa",
+        "Description": "ajuu"
+      }
+    ],
+    "Status": 0,
+    "TrackingPin": "201198"
+  },
+  "1750e035-6588-4ef6-b0f5-74f98ecc0335": {
+    "ReportId": "1750e035-6588-4ef6-b0f5-74f98ecc0335",
+    "ReporterName": "Jeremy",
+    "ReporterNoHP": "08123457098",
+    "Title": "Laporan Testing",
+    "Description": "Tesssssss 123",
+    "ReportedPerson": "Salman",
+    "Location": "TUCH",
+    "IncidentDate": "2026-06-16T00:00:00",
+    "Evidences": [],
+    "Status": 0,
+    "TrackingPin": "707974"
   }
 }
